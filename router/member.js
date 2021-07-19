@@ -8,7 +8,7 @@ const Members = db.membersModel;
 //login
 router.post('/login', async (req, res) => {
     console.log(req.body);
-    const ret = await Members.findOne()
+    const ret = await Members.findAll()
     console.log(ret);
     res.send('post /login')
 })

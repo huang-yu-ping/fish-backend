@@ -98,7 +98,8 @@ module.exports = sequelize => {
   const options = {
     tableName: "activity_info",
     comment: "",
-    indexes: []
+    indexes: [],
+    timestamps: false
   };
   const ActivityInfoModel = sequelize.define("activity_info_model", attributes, options);
   return ActivityInfoModel;

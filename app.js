@@ -18,6 +18,7 @@ app.use(express.json());
 
 //router
 app.use('/api/member', require('./router/member'));
+app.use('/api/activity', require('./router/activity'));
 
 
 app.listen(PORT, () => {
