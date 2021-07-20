@@ -1,10 +1,45 @@
 const { body } = require('express-validator')
 const validate = require('../middleware/validate')
+const PromiseBlueBird = require('bluebird');
+const bcrypt = PromiseBlueBird.promisifyAll(require('bcrypt'))
+//db
 const db = require('../models');
 const Members = db.membersModel;
 
 
-exports.postLogin = validate([])
+exports.postLogin = [
+    validate([
+      body('member.account')
+        .notEmpty().withMessage('email不能為空')
+        .isAlphanumeric()
+        .trim(),
+      body('member.password')
+        .notEmpty().withMessage('密碼不為空')
+        .isAlphanumeric()
+        .trim()
+     ]),
+    validate([
+      body('member.account')
+        .custom(async (account, { req }) => {
+          const member = await Members.findOne({ where: { account } });
+          if(!member) {
+            return Promise.reject('帳戶不存在');
+          }
+  
+          req.member = member
+        })   
+    ]),
+    validate([
+      body('member.password')
+        .custom(async (password, { req }) => {
+          //密碼比對
+          const compare = await bcrypt.compareAsync(password, req.member.password)
+          if(!compare) {
+            return Promise.reject('密碼錯誤')
+          } 
+        })
+    ])
+  ]
 
 
 //register step 1.
