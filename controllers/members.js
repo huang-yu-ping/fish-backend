@@ -1,15 +1,43 @@
 const Promise = require('bluebird');
+//password
 const bcrypt = Promise.promisifyAll(require('bcrypt'));
+//jwt
+const jwt = require('../utils/jwt');
+const { jwtSecret } = require('../config/jwt-secret');
 // members mysql
 const db = require('../models');
 const Members = db.membersModel;
+
+
+
+
+
 //login
-exports.postLogin = (req, res, next) => {
-        try {
-            res.send('post login')
-        } catch(err) {
-            next(err)
+exports.postLogin = async (req, res, next) => {
+    try {
+        //驗證
+        //生成token
+        const memberOne = req.member.toJSON();
+        const token = await jwt.sign({
+            memberId: memberOne.id
+        }, jwtSecret, {
+            //set expire time
+            expiresIn: '1h'
+        })
+        //response to client
+        const member = {
+            name: memberOne.username,
+            email: memberOne.email,
+            token
         }
+        res.status(200).json({
+            member
+        })
+
+
+    } catch(err) {
+        next(err)
+    }
 }
 
 
@@ -47,11 +75,3 @@ exports.postRegister = async (req, res, next) => {
         }
 }
 
-// step 1.
-
-// 檢查是否想同帳號,如果有相同,不給註冊
-// 檢查密碼和確認密碼是否一致
-// step 2.
-// 3. 驗證其他欄位
-
-//get current member info
