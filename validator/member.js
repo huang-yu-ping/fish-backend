@@ -3,9 +3,13 @@ const validate = require('../middleware/validate')
 const db = require('../models');
 const Members = db.membersModel;
 
+
+exports.postLogin = validate([])
+
+
 //register step 1.
 //register step 2.
-exports.postRegisterStepOne = [
+exports.postRegister = [
     validate([
         //訂制規則
         body('member.account')
@@ -43,15 +47,25 @@ exports.postRegisterStepOne = [
             .isLength({ min: 6 }).withMessage('至少六位數')
             .isAlphanumeric()
             .trim()
-            .bail()
-            .custom( async (password, {req}) => {
-                if(password !== req.body.member.password) {
-                    return Promise.reject('密碼不一致')
-                }
-            })
         ]),
     validate([
-
+        body('member.name')
+            .notEmpty().withMessage('名字不能為空')
+            .trim()
+            .isLength({ max: 100 }),
+        body('member.gender')
+            .notEmpty().withMessage('請選擇性別')
+            .isNumeric(),
+        body('member.birthday')
+            .notEmpty().withMessage('請選擇生日'),
+        body('member.phone')
+            .notEmpty().withMessage('請填寫電話')
+            .trim()
+            .isLength({ max: 10, min: 10 }).withMessage('請填寫正確電話'),
+        body('member.address')
+            .notEmpty().withMessage('地址不能為空')
+            .trim()
+            .isLength({ max: 200 }),
     ])
 ]
 

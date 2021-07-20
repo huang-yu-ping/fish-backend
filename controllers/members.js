@@ -19,27 +19,29 @@ exports.postRegister = async (req, res, next) => {
             //step 1. 
             //1. 獲取帳號,email,密碼,comfirm pwd
             //2. pwd & comfirmpwd is same?
-            // console.log(req.body);
-            // let { password, comfirmPassword } = req.body.member;
-            // if( password !== comfirmPassword ) {
-            //     res.status(422).json({
-            //         message: "密碼不一致"
-            //     });
-            // }
+            console.log(req.body);
+            let { password, comfirmPassword } = req.body.member;
+            if( password !== comfirmPassword ) {
+                res.status(422).json({
+                    nextStep: false,
+                    message: "密碼不一致"
+                });
+                res.end();
+            }
             //加密
-            //password = await bcrypt.hashAsync(password, 10);
+            req.body.member.password = await bcrypt.hashAsync(password, 10);
             //step 2.
             //save members table
-            //const saveMember = await Members.create(req.body.member);
-            // const member = {
-            //     username: saveUser.username,
-            //     email: saveUser.email
-            // }
-            // res.status(201).json({
-            //     user
-            // })
- 
-            res.send('post postRegister')
+            const saveMember = await Members.create(req.body.member);
+            const member = {
+                name: saveMember.username,
+                email: saveMember.email
+            }
+            res.status(201).json({
+                mewssage: "恭喜註冊成功",
+                member
+            })
+
         } catch(err) {
             next(err)
         }

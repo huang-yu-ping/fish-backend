@@ -9,7 +9,7 @@ const memberValidator = require('../validator/member');
 router.post('/login', memberCtrl.postLogin)
 
 //register
-router.post('/register', memberValidator.postRegisterStepOne, memberCtrl.postRegister)
+router.post('/register', memberValidator.postRegister, memberCtrl.postRegister)
 
 //current member profile 
 router.get('/profiles/:memberName', (req, res) => {
