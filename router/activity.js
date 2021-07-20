@@ -4,7 +4,7 @@ const router = express.Router();
 router.get("/activity", (req, res) => {
   res.render("首頁的活動資訊");
   //需要點選日曆顯示活動詳情，也需要點選地點顯示活動日期
-  //不用權限->res內容->似乎需要增加產品類別和地點類別??
+  //不用權限
   //   [
   //     {
   //         "name": "活動名稱-海釣",
