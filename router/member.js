@@ -1,22 +1,15 @@
 const express = require('express');
 const router = express.Router();
-//mysql
-const db = require('../models');
-const Members = db.membersModel;
-
+//ctrl
+const memberCtrl = require('../controllers/members');
+//memberValidator
+const memberValidator = require('../validator/member');
 
 //login
-router.post('/login', async (req, res) => {
-    console.log(req.body);
-    const ret = await Members.findAll()
-    console.log(ret);
-    res.send('post /login')
-})
+router.post('/login', memberCtrl.postLogin)
 
 //register
-router.post('/register', (req, res) => {
-    res.send('post /register')
-})
+router.post('/register', memberValidator.postRegisterStepOne, memberCtrl.postRegister)
 
 //current member profile 
 router.get('/profiles/:memberName', (req, res) => {

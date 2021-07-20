@@ -85,6 +85,15 @@ module.exports = sequelize => {
       comment: null,
       field: "email"
     },
+    phone: {
+      type: DataTypes.STRING(15),
+      allowNull: false,
+      defaultValue: null,
+      primaryKey: false,
+      autoIncrement: false,
+      comment: null,
+      field: "phone"
+    },
     address: {
       type: DataTypes.STRING(350),
       allowNull: false,
@@ -126,7 +135,7 @@ module.exports = sequelize => {
     tableName: "members",
     comment: "",
     indexes: [],
-    timestamps: false
+    timestamps: false,
   };
   const MembersModel = sequelize.define("members_model", attributes, options);
   return MembersModel;

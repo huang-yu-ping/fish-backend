@@ -79,6 +79,15 @@ module.exports = sequelize => {
       autoIncrement: false,
       comment: null,
       field: "remit"
+    },
+    order_state: {
+      type: DataTypes.INTEGER(1),
+      allowNull: false,
+      defaultValue: "0",
+      primaryKey: false,
+      autoIncrement: false,
+      comment: null,
+      field: "order_state"
     }
   };
   const options = {
