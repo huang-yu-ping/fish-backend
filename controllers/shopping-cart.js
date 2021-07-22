@@ -2,8 +2,7 @@
 const db = require('../models');
 const ShoppingCartItems =db.shoppingCartItemsModel;
 const Products = db.ProductsModel;
-const OrderItems = db.OrderItemsModel;
-const OrderDetail =db.OrderedDetailModel;
+
 //get cart list count
 //當用戶登入時要顯示於shopping cart count
 exports.postCartAdd = async (req, res, next) => {
@@ -33,14 +32,7 @@ exports.getCartList = async (req, res, next) => {
         })
        //如果這個人沒有
         if(findMemberItemCart.length === 0) {
-            //clear order items 我要清掉他的order
-            const deleteMemberItemCart = await OrderDetail.destroy({
-                where: {
-                    member_id: req.member.id
-                }
-            })
-
-
+            
             //----------------
             //當他選擇商品加入購物車
             let arrItems = req.body.products
