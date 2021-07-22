@@ -13,17 +13,17 @@ module.exports = sequelize => {
       comment: null,
       field: "id"
     },
-    session_id: {
+    member_id: {
       type: DataTypes.INTEGER(5),
       allowNull: false,
       defaultValue: null,
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "session_id",
+      field: "member_id",
       references: {
         key: "id",
-        model: "shpping_session_model"
+        model: "members_model"
       }
     },
     product_id: {
@@ -71,16 +71,17 @@ module.exports = sequelize => {
     tableName: "cart_items",
     comment: "",
     indexes: [{
-      name: "session_id",
-      unique: false,
-      type: "BTREE",
-      fields: ["session_id"]
-    }, {
       name: "product_id",
       unique: false,
       type: "BTREE",
       fields: ["product_id"]
-    }]
+    }, {
+      name: "member_id",
+      unique: false,
+      type: "BTREE",
+      fields: ["member_id"]
+    }],
+    timestamps: false
   };
   const CartItemsModel = sequelize.define("cart_items_model", attributes, options);
   return CartItemsModel;

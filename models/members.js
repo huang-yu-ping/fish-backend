@@ -135,7 +135,7 @@ module.exports = sequelize => {
     tableName: "members",
     comment: "",
     indexes: [],
-    timestamps: false,
+    timestamps: false
   };
   const MembersModel = sequelize.define("members_model", attributes, options);
   return MembersModel;

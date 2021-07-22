@@ -22,14 +22,14 @@ module.exports = sequelize => {
       comment: null,
       field: "name"
     },
-    dsecriotion: {
+    description: {
       type: DataTypes.STRING(255),
       allowNull: true,
       defaultValue: null,
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "dsecriotion"
+      field: "description"
     },
     price: {
       type: DataTypes.INTEGER(4).UNSIGNED,
