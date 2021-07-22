@@ -1,8 +1,6 @@
-const {
-  DataTypes
-} = require('sequelize');
+const { DataTypes } = require("sequelize");
 
-module.exports = sequelize => {
+module.exports = (sequelize) => {
   const attributes = {
     id: {
       type: DataTypes.INTEGER(5),
@@ -11,7 +9,7 @@ module.exports = sequelize => {
       primaryKey: true,
       autoIncrement: true,
       comment: null,
-      field: "id"
+      field: "id",
     },
     name: {
       type: DataTypes.STRING(50),
@@ -20,16 +18,16 @@ module.exports = sequelize => {
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "name"
+      field: "name",
     },
-    dsecriotion: {
+    description: {
       type: DataTypes.STRING(255),
       allowNull: true,
       defaultValue: null,
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "dsecriotion"
+      field: "dsecriotion",
     },
     price: {
       type: DataTypes.INTEGER(4).UNSIGNED,
@@ -38,7 +36,7 @@ module.exports = sequelize => {
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "price"
+      field: "price",
     },
     catalog: {
       type: DataTypes.INTEGER(11),
@@ -50,8 +48,8 @@ module.exports = sequelize => {
       field: "catalog",
       references: {
         key: "id",
-        model: "catalog_model"
-      }
+        model: "catalog_model",
+      },
     },
     reserved: {
       type: DataTypes.INTEGER(3).UNSIGNED,
@@ -60,7 +58,7 @@ module.exports = sequelize => {
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "reserved"
+      field: "reserved",
     },
     state: {
       type: DataTypes.INTEGER(1),
@@ -69,18 +67,20 @@ module.exports = sequelize => {
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "state"
-    }
+      field: "state",
+    },
   };
   const options = {
     tableName: "products",
     comment: "",
-    indexes: [{
-      name: "catalog",
-      unique: false,
-      type: "BTREE",
-      fields: ["catalog"]
-    }]
+    indexes: [
+      {
+        name: "catalog",
+        unique: false,
+        type: "BTREE",
+        fields: ["catalog"],
+      },
+    ],
   };
   const ProductsModel = sequelize.define("products_model", attributes, options);
   return ProductsModel;

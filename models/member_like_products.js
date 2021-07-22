@@ -1,8 +1,6 @@
-const {
-  DataTypes
-} = require('sequelize');
+const { DataTypes } = require("sequelize");
 
-module.exports = sequelize => {
+module.exports = (sequelize) => {
   const attributes = {
     id: {
       type: DataTypes.INTEGER(5),
@@ -11,7 +9,7 @@ module.exports = sequelize => {
       primaryKey: true,
       autoIncrement: true,
       comment: null,
-      field: "id"
+      field: "id",
     },
     member_id: {
       type: DataTypes.INTEGER(5),
@@ -23,8 +21,8 @@ module.exports = sequelize => {
       field: "member_id",
       references: {
         key: "id",
-        model: "members_model"
-      }
+        model: "members_model",
+      },
     },
     product_id: {
       type: DataTypes.INTEGER(5),
@@ -36,25 +34,33 @@ module.exports = sequelize => {
       field: "product_id",
       references: {
         key: "id",
-        model: "products_model"
-      }
-    }
+        model: "products_model",
+      },
+    },
   };
   const options = {
     tableName: "member_like_products",
     comment: "",
-    indexes: [{
-      name: "member_id",
-      unique: false,
-      type: "BTREE",
-      fields: ["member_id"]
-    }, {
-      name: "product_id",
-      unique: false,
-      type: "BTREE",
-      fields: ["product_id"]
-    }]
+    timestamps: false,
+    indexes: [
+      {
+        name: "member_id",
+        unique: false,
+        type: "BTREE",
+        fields: ["member_id"],
+      },
+      {
+        name: "product_id",
+        unique: false,
+        type: "BTREE",
+        fields: ["product_id"],
+      },
+    ],
   };
-  const MemberLikeProductsModel = sequelize.define("member_like_products_model", attributes, options);
+  const MemberLikeProductsModel = sequelize.define(
+    "member_like_products_model",
+    attributes,
+    options
+  );
   return MemberLikeProductsModel;
 };
