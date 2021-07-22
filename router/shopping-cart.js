@@ -4,13 +4,12 @@ const router = express.Router();
 const shppingCartCtrl = require('../controllers/shopping-cart');
 //auth
 const auth = require('../middleware/auth');
-//validadtor
-const memberValidator = require('../validator/products-order');
+
 //click shopping cart
 router.post('/', auth, shppingCartCtrl.postCartAdd)
 
 //get cart item list
-router.get('/', auth, memberValidator.postOrderDetail, shppingCartCtrl.getCartList)
+router.get('/', auth, shppingCartCtrl.getCartList)
 
 
 module.exports = router;
