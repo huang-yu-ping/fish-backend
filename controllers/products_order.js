@@ -51,7 +51,7 @@ exports.postOrderDetails = async (req, res, next) => {
         let pay_total = original_total - discount;
         //---------
 
-        //----res
+        //----res save order
         const resToOrderDetail = {
             name: req.member.name,
             original_total,
@@ -87,6 +87,10 @@ exports.postOrderDetails = async (req, res, next) => {
              
         const saveOrderItems = await OrderItems.bulkCreate(orderItemsArr)
         //------------
+        //clear cart items
+        const clearCartItems = await ShoppingCartItems.destroy({ where: {
+            member_id: req.member.id
+        }})
 
         
         res.status(200).json(resToOrderDetail)
