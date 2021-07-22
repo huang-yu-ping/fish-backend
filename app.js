@@ -20,8 +20,12 @@ app.use(express.json());
 //router
 app.use('/api/member', require('./router/member'));
 app.use('/api/activity', require('./router/activity'));
+
+app.use('/api/product', require('./router/product'));
+
 app.use('/api/cart', require('./router/shopping-cart'));
 app.use('/api/order', require('./router/products-order'));
+
 //error
 app.use(errorHandler())
 
