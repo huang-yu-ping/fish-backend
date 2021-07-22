@@ -15,8 +15,8 @@ module.exports = sequelize => {
     },
     order_id: {
       type: DataTypes.INTEGER(5),
-      allowNull: true,
-      defaultValue: null,
+      allowNull: false,
+      defaultValue: 1,
       primaryKey: false,
       autoIncrement: false,
       comment: null,
@@ -80,7 +80,8 @@ module.exports = sequelize => {
       unique: false,
       type: "BTREE",
       fields: ["product_id"]
-    }]
+    }],
+    timestamps: false
   };
   const OrderItemsModel = sequelize.define("order_items_model", attributes, options);
   return OrderItemsModel;
