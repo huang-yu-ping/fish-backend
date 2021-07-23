@@ -1,8 +1,18 @@
 const express = require("express");
 const router = express.Router();
+const db = require('../models');
+const ActivityInfo = db.activityInfoModel;
 
-router.get("/activity", (req, res) => {
-  res.render("首頁的活動資訊");
+router.post('/:id', (req, res) => {})
+router.get("/", async (req, res) => {
+  // res.render("首頁的活動資訊");
+  const ret = await ActivityInfo.findAll()
+  res.status(200).json({
+    ret
+  })
+
+  
+
   //需要點選日曆顯示活動詳情，也需要點選地點顯示活動日期
   //不用權限->res內容->似乎需要增加產品類別和地點類別??
   //   [
@@ -83,3 +93,5 @@ router.post("/activity/order", (req, res) => {
   res.render("活動訂單");
   //要權限->req內容
 });
+
+module.exports = router;

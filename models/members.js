@@ -85,6 +85,15 @@ module.exports = sequelize => {
       comment: null,
       field: "email"
     },
+    phone: {
+      type: DataTypes.STRING(15),
+      allowNull: false,
+      defaultValue: null,
+      primaryKey: false,
+      autoIncrement: false,
+      comment: null,
+      field: "phone"
+    },
     address: {
       type: DataTypes.STRING(350),
       allowNull: false,
