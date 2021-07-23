@@ -23,7 +23,7 @@ exports.postCartAdd = async (req, res, next) => {
 //get cart list
 exports.getCartList = async (req, res, next) => {
     try {
-        //session_id ? first time ?
+        // first time ?
         //找到shopping cart有沒有登入會員的加入
         let findMemberItemCart = await ShoppingCartItems.findAll({
             where: {
@@ -31,6 +31,7 @@ exports.getCartList = async (req, res, next) => {
             }
         })
        //如果這個人沒有
+       // we need to comfirm is not empty array
         if(findMemberItemCart.length === 0) {
             
             //----------------

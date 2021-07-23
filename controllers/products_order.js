@@ -63,6 +63,7 @@ exports.postOrderDetails = async (req, res, next) => {
             address: req.body.order_details.address,
             buyItem: getShoppingCartItems
         }
+        //here, we need to confirm shopping cart is not empty
         //save db
         let orderId = await OrderItems.max('order_id')
         let order_serial_number = `RK0001${orderId}`
@@ -87,7 +88,7 @@ exports.postOrderDetails = async (req, res, next) => {
              
         const saveOrderItems = await OrderItems.bulkCreate(orderItemsArr)
         //------------
-        //clear cart items
+        //clear cart items and diff reserved
         const clearCartItems = await ShoppingCartItems.destroy({ where: {
             member_id: req.member.id
         }})
