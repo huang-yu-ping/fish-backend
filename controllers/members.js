@@ -26,7 +26,7 @@ exports.postLogin = async (req, res, next) => {
         })
         //response to client
         const member = {
-            name: memberOne.username,
+            name: memberOne.name,
             email: memberOne.email,
             token
         }
@@ -66,7 +66,8 @@ exports.postRegister = async (req, res, next) => {
                 email: saveMember.email
             }
             res.status(201).json({
-                mewssage: "恭喜註冊成功",
+                message: "恭喜註冊成功,請再次登入",
+                registerSuccess: true,
                 member
             })
 
