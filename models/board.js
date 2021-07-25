@@ -1,8 +1,6 @@
-const {
-  DataTypes
-} = require('sequelize');
+const { DataTypes } = require("sequelize");
 
-module.exports = sequelize => {
+module.exports = (sequelize) => {
   const attributes = {
     id: {
       type: DataTypes.INTEGER(5),
@@ -11,7 +9,7 @@ module.exports = sequelize => {
       primaryKey: true,
       autoIncrement: true,
       comment: null,
-      field: "id"
+      field: "id",
     },
     board_usename: {
       type: DataTypes.STRING(10),
@@ -20,7 +18,7 @@ module.exports = sequelize => {
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "board_usename"
+      field: "board_usename",
     },
     board_content: {
       type: DataTypes.STRING(100),
@@ -29,31 +27,31 @@ module.exports = sequelize => {
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "board_content"
+      field: "board_content",
     },
     board_update_time: {
       type: DataTypes.DATEONLY,
       allowNull: false,
-      defaultValue: null,
+      defaultValue: sequelize.fn("current_timestamp"),
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "board_update_time"
+      field: "board_update_time",
     },
     board_state: {
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: "current_timestamp(1)",
+      defaultValue: "0",
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "board_state"
-    }
+      field: "board_state",
+    },
   };
   const options = {
     tableName: "board",
     comment: "",
-    indexes: []
+    indexes: [],
   };
   const BoardModel = sequelize.define("board_model", attributes, options);
   return BoardModel;

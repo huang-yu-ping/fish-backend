@@ -91,6 +91,7 @@ module.exports = (sequelize) => {
   const options = {
     tableName: "activity_order",
     comment: "",
+    timestamps: false,
     indexes: [
       {
         name: "activity_id",
@@ -98,8 +99,7 @@ module.exports = (sequelize) => {
         type: "BTREE",
         fields: ["activity_id"],
       },
-    ],
-    timestamps: false,
+    ]
   };
   const ActivityOrderModel = sequelize.define(
     "activity_order_model",

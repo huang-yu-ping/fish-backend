@@ -98,6 +98,7 @@ module.exports = (sequelize) => {
     comment: "",
     indexes: [],
     timestamps: false,
+
   };
   const ActivityInfoModel = sequelize.define(
     "activity_info_model",
