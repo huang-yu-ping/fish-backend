@@ -30,82 +30,79 @@ module.exports = {
     //   start_time:"1993-09-22",
     //   limit_num: 20,
     //   current_apply: 0}], {});
-
+    //----OK-------------------------------------------activity_order
     await queryInterface.bulkInsert(
-      "products",
+      "activity_order",
       [
         {
-          name: "虱目魚",
-          description: "good fish",
-          price: 500,
-          catalog: 1,
-          reserved: 10,
-        },
-        {
-          name: "吳郭魚",
-          description: "hi fish",
-          price: 840,
-          catalog: 1,
-          reserved: 5,
-        },
-        {
-          name: "火燒蝦",
-          description: "fire",
-          price: 890,
-          catalog: 2,
-          reserved: 6,
-        },
-        {
-          name: "大扇貝",
-          description: "big shell",
-          price: 300,
-          catalog: 3,
-          reserved: 10,
-        },
-        {
-          name: "章魚",
-          description: "octopus",
-          price: 250,
-          catalog: 4,
-          reserved: 7,
-        },
-        {
-          name: "黃魚",
-          price: 350,
-          catalog: 1,
-          reserved: 4,
-        },
-        {
-          name: "草蝦",
-          description: "yoyo",
-          price: 56,
-          catalog: 2,
-          reserved: 13,
-        },
-        {
-          name: "額子",
-          description: "good fish",
-          price: 780,
-          catalog: 3,
-          reserved: 10,
-        },
-        {
-          name: "烏賊",
-          description: "black",
-          price: 89,
-          catalog: 4,
-          reserved: 15,
-        },
-        {
-          name: "螃蟹",
-          description: "jojo",
-          price: 900,
-          catalog: 3,
-          reserved: 7,
+          activity_id: 1,
+          name: "jay",
+          phone: "0911111111",
+          email: "jay@gmail.com",
+          member_id: 4,
+          remit: 1,
+          order_state: 1,
         },
       ],
       {}
     );
+    //----OK-------------------------------------------board
+    // await queryInterface.bulkInsert("board", [
+    //   {
+    //     board_usename: "小白",
+    //     board_content:
+    //       "這是測試2這是測試2這是測試2這是測試2這是測試2這是測試2",
+    //     board_state: 1,
+    //   }
+    // ]);
+    //----OK-------------------------------------------collect_product
+    // await queryInterface.bulkInsert("collect_product", [
+    //   {
+    //     member_id: 4,
+    //     product_id: 1,
+    //   },
+    //   {
+    //     member_id: 4,
+    //     product_id: 3,
+    //   },
+    //   {
+    //     member_id: 4,
+    //     product_id: 7,
+    //   },
+    // ]);
+    //----OK---------------------------------------------note
+    // await queryInterface.bulkInsert(
+    //   "note",
+    //   [
+    //     {
+    //       member_id: 4,
+    //       note_name: "札記標題",
+    //       note_content:
+    //         "札記內容札記內容札記內容札記內容札記內容札記內容札記內容札記內容札記內容札記內容",
+    //       favorite: 5,
+    //       state: 1,
+    //     },
+    //   ],
+    //   {}
+    // );
+    //----OK----------------------------------------------favorites_note
+    // await queryInterface.bulkInsert("favorites_note", [
+    //   {
+    //     member_id: 4,
+    //     note_id: 3,
+    //   },
+    //   {
+    //     member_id: 6,
+    //     note_id: 1,
+    //   },
+    // ]);
+    //----OK----------------------------------------------member_like_products
+    // await queryInterface.bulkInsert("member_like_products", [
+    //   {
+    //     member_id: 4,
+    //     product_id: 2,
+    //   },
+    // ]);
   },
 
   down: async (queryInterface, Sequelize) => {

@@ -21,11 +21,11 @@ app.use("/api/member", require("./router/member"));
 app.use("/api/activity", require("./router/activity"));
 app.use("/api/profile", require("./router/profile"));
 
-app.use('/api/product', require('./router/product'));
+app.use("/api/product", require("./router/product"));
 
-app.use('/api/cart', require('./router/shopping-cart'));
-app.use('/api/order', require('./router/products-order'));
-
+app.use("/api/cart", require("./router/shopping-cart"));
+app.use("/api/order", require("./router/products-order"));
+app.use(express.static("images"));
 //error
 app.use(errorHandler());
 
