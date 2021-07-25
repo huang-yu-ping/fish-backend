@@ -2,8 +2,7 @@
 const db = require('../models');
 const ShoppingCartItems =db.shoppingCartItemsModel;
 const Products = db.ProductsModel;
-const OrderItems = db.OrderItemsModel;
-const OrderDetail =db.OrderedDetailModel;
+
 //get cart list count
 //當用戶登入時要顯示於shopping cart count
 exports.postCartAdd = async (req, res, next) => {
@@ -24,7 +23,7 @@ exports.postCartAdd = async (req, res, next) => {
 //get cart list
 exports.getCartList = async (req, res, next) => {
     try {
-        //session_id ? first time ?
+        // first time ?
         //找到shopping cart有沒有登入會員的加入
         let findMemberItemCart = await ShoppingCartItems.findAll({
             where: {
@@ -32,15 +31,9 @@ exports.getCartList = async (req, res, next) => {
             }
         })
        //如果這個人沒有
+       // we need to comfirm is not empty array
         if(findMemberItemCart.length === 0) {
-            //clear order items 我要清掉他的order
-            const deleteMemberItemCart = await OrderDetail.destroy({
-                where: {
-                    member_id: req.member.id
-                }
-            })
-
-
+            
             //----------------
             //當他選擇商品加入購物車
             let arrItems = req.body.products
