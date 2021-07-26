@@ -27,7 +27,7 @@ module.exports = (sequelize) => {
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "dsecriotion",
+      field: "description",
     },
     price: {
       type: DataTypes.INTEGER(4).UNSIGNED,
@@ -73,6 +73,7 @@ module.exports = (sequelize) => {
   const options = {
     tableName: "products",
     comment: "",
+    timestamps: false,
     indexes: [
       {
         name: "catalog",

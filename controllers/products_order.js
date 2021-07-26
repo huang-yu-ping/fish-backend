@@ -1,4 +1,3 @@
-const { reduce } = require('bluebird');
 const db = require('../models');
 const ShoppingCartItems =db.shoppingCartItemsModel;
 const Products = db.ProductsModel;
@@ -7,6 +6,19 @@ const OrderItems = db.OrderItemsModel;
 
 exports.getOrderItems = async (req, res, next) => {
     try {
+        //check cart is not empty
+        const retNum = await ShoppingCartItems.findAll({ where: {
+            member_id: req.member.id
+          }
+        })
+        const selectedNum = retNum.length;
+        if(selectedNum === 0) {
+            res.status(406).json({
+                message: "請選擇商品加入購物車"
+            })
+            return;
+        }
+        //---------------------------------------------
         ShoppingCartItems.belongsTo(Products, { targetKey: 'id', foreignKey: 'product_id'});
         const getShoppingCartItems = await ShoppingCartItems.findAll({ 
             attributes: ['buy_num'],
@@ -19,7 +31,7 @@ exports.getOrderItems = async (req, res, next) => {
             }
         })
         
-        res.status(200).json(getShoppingCartItems)
+        res.status(201).json(getShoppingCartItems)
 
     } catch(err) {
         next(err)
@@ -31,6 +43,20 @@ exports.getOrderItems = async (req, res, next) => {
 //order detail
 exports.postOrderDetails = async (req, res, next) => {
     try {
+        //check cart is not empty
+        const retNum = await ShoppingCartItems.findAll({ where: {
+            member_id: req.member.id
+          }
+        })
+        const selectedNum = retNum.length;
+        if(selectedNum === 0) {
+            res.status(406).json({
+                message: "請選擇商品加入購物車"
+            })
+            return;
+        }
+        //--------------------------------------------
+
         ShoppingCartItems.belongsTo(Products, { targetKey: 'id', foreignKey: 'product_id'});
         const getShoppingCartItems = await ShoppingCartItems.findAll({ 
             attributes: ['buy_num', 'product_id'],
@@ -84,11 +110,12 @@ exports.postOrderDetails = async (req, res, next) => {
             delete getShoppingCartItems[i].dataValues.products_model;
             orderItemsArr.push(getShoppingCartItems[i].dataValues)
         }
-        console.log(orderItemsArr)
+
+        //clear cart items and diff reserved
              
         const saveOrderItems = await OrderItems.bulkCreate(orderItemsArr)
-        //------------
-        //clear cart items and diff reserved
+        
+        //clear cart items
         const clearCartItems = await ShoppingCartItems.destroy({ where: {
             member_id: req.member.id
         }})

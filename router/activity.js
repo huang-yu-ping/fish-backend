@@ -12,6 +12,8 @@ router.get("/", async (req, res) => {
   });
 });
 
+
+
 router.post("/order", async (req, res) => {
   try {
     const signUp = await ActivityOrder.create({
