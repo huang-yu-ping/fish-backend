@@ -3,6 +3,13 @@ const ShoppingCartItems =db.shoppingCartItemsModel;
 const Products = db.ProductsModel;
 const OrderDetail = db.OrderedDetailModel;
 const OrderItems = db.OrderItemsModel;
+//random number
+const rn = require('random-number');
+let gen = rn.generator({
+    min:  1000, 
+    max:  9999, 
+    integer: true
+})
 
 exports.getOrderItems = async (req, res, next) => {
     try {
@@ -92,7 +99,7 @@ exports.postOrderDetails = async (req, res, next) => {
         //here, we need to confirm shopping cart is not empty
         //save db
         let orderId = await OrderItems.max('order_id')
-        let order_serial_number = `RK0001${orderId}`
+        let order_serial_number = `RK${gen()}${orderId}`
         const saveOrderDetail = await OrderDetail.create({
             order_serial_number,
             member_id: req.member.id,
