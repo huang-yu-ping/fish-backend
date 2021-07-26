@@ -50,7 +50,7 @@ exports.getOrderItems = async (req, res, next) => {
 //order detail
 exports.postOrderDetails = async (req, res, next) => {
     try {
-        //check cart is not empty
+       // check cart is not empty
         const retNum = await ShoppingCartItems.findAll({ where: {
             member_id: req.member.id
           }
@@ -117,10 +117,14 @@ exports.postOrderDetails = async (req, res, next) => {
             delete getShoppingCartItems[i].dataValues.products_model;
             orderItemsArr.push(getShoppingCartItems[i].dataValues)
         }
+        console.log(orderItemsArr)
+        
 
         //clear cart items and diff reserved
              
         const saveOrderItems = await OrderItems.bulkCreate(orderItemsArr)
+        console.log(saveOrderItems)
+        
         
         //clear cart items
         const clearCartItems = await ShoppingCartItems.destroy({ where: {
@@ -129,6 +133,7 @@ exports.postOrderDetails = async (req, res, next) => {
 
         
         res.status(200).json(resToOrderDetail)
+        //res.status(200).json(saveOrderItems)
     } catch(err) {
         next(err)
     }
