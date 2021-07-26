@@ -79,7 +79,7 @@ exports.postOrderDetails = async (req, res, next) => {
         let original_total = 0 
         const discount = req.body.order_details.discount_count * 100;
         for(i = 0;i < getShoppingCartItems.length;i++) {
-            original_total += getShoppingCartItems[i].products_model.price
+            original_total += getShoppingCartItems[i].products_model.price * getShoppingCartItems[i].buy_num
         }
         let pay_total = original_total - discount;
         //---------
