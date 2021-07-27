@@ -26,8 +26,9 @@ exports.postLogin = async (req, res, next) => {
         })
         //response to client
         const member = {
-            name: memberOne.username,
+            name: memberOne.name,
             email: memberOne.email,
+            image: memberOne.image,
             token
         }
         res.status(200).json({

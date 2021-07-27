@@ -158,6 +158,24 @@ module.exports = {
       ],
       {}
     );
+    //----OK-------------------------------------------activity_order
+    await queryInterface.bulkInsert(
+      "activity_order",
+      [
+        {
+          activity_id: 1,
+          name: "jay",
+          phone: "0911111111",
+          email: "jay@gmail.com",
+          member_id: 4,
+          remit: 1,
+          order_state: 1,
+>>>>>>> 4b0a09f751501a89e3d4a843414d544e343862c5
+        },
+      ],
+      {}
+    );
+<<<<<<< HEAD
 
     // await queryInterface.bulkInsert('products', [
     // {
@@ -220,6 +238,65 @@ module.exports = {
     //   catalog: 3,
     //   reserved: 7,
     // }], {});
+=======
+    //----OK-------------------------------------------board
+    // await queryInterface.bulkInsert("board", [
+    //   {
+    //     board_usename: "小白",
+    //     board_content:
+    //       "這是測試2這是測試2這是測試2這是測試2這是測試2這是測試2",
+    //     board_state: 1,
+    //   }
+    // ]);
+    //----OK-------------------------------------------collect_product
+    // await queryInterface.bulkInsert("collect_product", [
+    //   {
+    //     member_id: 4,
+    //     product_id: 1,
+    //   },
+    //   {
+    //     member_id: 4,
+    //     product_id: 3,
+    //   },
+    //   {
+    //     member_id: 4,
+    //     product_id: 7,
+    //   },
+    // ]);
+    //----OK---------------------------------------------note
+    // await queryInterface.bulkInsert(
+    //   "note",
+    //   [
+    //     {
+    //       member_id: 4,
+    //       note_name: "札記標題",
+    //       note_content:
+    //         "札記內容札記內容札記內容札記內容札記內容札記內容札記內容札記內容札記內容札記內容",
+    //       favorite: 5,
+    //       state: 1,
+    //     },
+    //   ],
+    //   {}
+    // );
+    //----OK----------------------------------------------favorites_note
+    // await queryInterface.bulkInsert("favorites_note", [
+    //   {
+    //     member_id: 4,
+    //     note_id: 3,
+    //   },
+    //   {
+    //     member_id: 6,
+    //     note_id: 1,
+    //   },
+    // ]);
+    //----OK----------------------------------------------member_like_products
+    // await queryInterface.bulkInsert("member_like_products", [
+    //   {
+    //     member_id: 4,
+    //     product_id: 2,
+    //   },
+    // ]);
+>>>>>>> 4b0a09f751501a89e3d4a843414d544e343862c5
   },
 
   down: async (queryInterface, Sequelize) => {
@@ -229,6 +306,10 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+<<<<<<< HEAD
     await queryInterface.bulkDelete("activity_info", null, {});
+=======
+    await queryInterface.bulkDelete("members", null, {});
+>>>>>>> 4b0a09f751501a89e3d4a843414d544e343862c5
   },
 };

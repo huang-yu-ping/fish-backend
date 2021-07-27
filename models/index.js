@@ -48,6 +48,10 @@ db.membersModel = require("./members")(sequelize);
 //activity
 db.activityInfoModel = require("./activity_info")(sequelize);
 db.activityOrderModel = require("./activity_order")(sequelize);
+//profiles
+db.noteModel = require("./note")(sequelize);
+db.memberLikeProductsModel = require("./member_like_products")(sequelize);
+db.favoritesNoteModel = require("./favorites_note")(sequelize);
 //shopping cart
 db.shoppingCartItemsModel = require("./cart_items")(sequelize);
 //products

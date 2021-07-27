@@ -43,6 +43,11 @@ exports.getCartList = async (req, res, next) => {
             //create
             //加入shopping cart表
             const createMemberItemCart = await ShoppingCartItems.bulkCreate(arrItems)
+            if(createMemberItemCart.length === 0) {
+                return res.status(406).json({
+                    message: "購物車添加失敗",
+                }) 
+            }
             return res.status(201).json({
                 message: "購物車添加成功",
                 createMemberItemCart
@@ -64,6 +69,11 @@ exports.getCartList = async (req, res, next) => {
             const updateMemberItemCart = await ShoppingCartItems.bulkCreate(arrItems, { 
                 updateOnDuplicate: ["member_id", "product_id", "buy_num"] })
             
+            if(updateMemberItemCart.length === 0) {
+                return res.status(406).json({
+                    message: "購物車添加失敗",
+                }) 
+            }
             //const updateItemCart = await OrderItems.bulkCreate(updateMemberItemCart)
             //join
             ShoppingCartItems.belongsTo(Products, { targetKey: 'id', foreignKey: 'product_id'});
