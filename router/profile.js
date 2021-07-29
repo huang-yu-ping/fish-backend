@@ -67,9 +67,9 @@ router.post("/image", auth, upload.single("photo"), async (req, res) => {
 //抓取個人資料
 router.get("/", auth, async (req, res) => {
   //   console.log(req.member);
-  const member = await Members.findOne({ where: { id: req.member.id } });
+  //const member = await Members.findOne({ where: { id: req.member.id } });
   res.status(200).json({
-    member: member,
+    member: 'member',
   });
 });
 

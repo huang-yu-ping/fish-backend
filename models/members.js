@@ -51,7 +51,7 @@ module.exports = sequelize => {
     },
     gender: {
       type: DataTypes.INTEGER(1),
-      allowNull: false,
+      allowNull: true,
       defaultValue: null,
       primaryKey: false,
       autoIncrement: false,
@@ -60,7 +60,7 @@ module.exports = sequelize => {
     },
     birthday: {
       type: DataTypes.DATEONLY,
-      allowNull: false,
+      allowNull: true,
       defaultValue: null,
       primaryKey: false,
       autoIncrement: false,
@@ -87,7 +87,7 @@ module.exports = sequelize => {
     },
     phone: {
       type: DataTypes.STRING(15),
-      allowNull: false,
+      allowNull: true,
       defaultValue: null,
       primaryKey: false,
       autoIncrement: false,
@@ -96,7 +96,7 @@ module.exports = sequelize => {
     },
     address: {
       type: DataTypes.STRING(350),
-      allowNull: false,
+      allowNull: true,
       defaultValue: null,
       primaryKey: false,
       autoIncrement: false,

@@ -117,14 +117,18 @@ exports.postOrderDetails = async (req, res, next) => {
             delete getShoppingCartItems[i].dataValues.products_model;
             orderItemsArr.push(getShoppingCartItems[i].dataValues)
         }
-        console.log(orderItemsArr)
         
 
         //clear cart items and diff reserved
              
         const saveOrderItems = await OrderItems.bulkCreate(orderItemsArr)
-        console.log(saveOrderItems)
         
+        saveOrderItems.map(async (item) => {
+            await Products.decrement({'reserved': item.buy_num}, {where: {
+                id: item.product_id
+            }})
+            
+        })
         
         //clear cart items
         const clearCartItems = await ShoppingCartItems.destroy({ where: {
