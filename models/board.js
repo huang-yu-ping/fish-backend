@@ -39,9 +39,9 @@ module.exports = (sequelize) => {
       field: "board_update_time",
     },
     board_state: {
-      type: DataTypes.DATE,
+      type: DataTypes.INTEGER(1),
       allowNull: false,
-      defaultValue: "0",
+      defaultValue: false,
       primaryKey: false,
       autoIncrement: false,
       comment: null,
