@@ -80,9 +80,8 @@ router.get("/", auth, async (req, res) => {
   //   console.log(req.member);
   const member = await Members.findOne({ where: { id: req.member.id } });
   console.log(member.password);
-  res.status(200).json({
-    member: member,
-  });
+
+  res.status(200).json({ member });
 });
 
 //update 更新會員表單

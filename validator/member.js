@@ -11,7 +11,6 @@ exports.postLogin = [
     validate([
       body('member.account')
         .notEmpty().withMessage('email不能為空')
-        .isAlphanumeric()
         .trim(),
       body('member.password')
         .notEmpty().withMessage('密碼不為空')

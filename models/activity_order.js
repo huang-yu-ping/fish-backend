@@ -99,7 +99,7 @@ module.exports = (sequelize) => {
         type: "BTREE",
         fields: ["activity_id"],
       },
-    ],
+    ]
   };
   const ActivityOrderModel = sequelize.define(
     "activity_order_model",
