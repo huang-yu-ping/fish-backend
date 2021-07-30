@@ -4,12 +4,10 @@ const morgan = require("morgan");
 //error
 const errorHandler = require("./middleware/error-handler");
 //google
-const passport = require('passport');
-require('./middleware/passport-setup')
-
+// const passport = require("passport");
+// require("./middleware/passport-setup");
 
 const PORT = 3000;
-
 
 //morgan
 app.use(morgan("dev"));
@@ -23,7 +21,7 @@ app.use(cors());
 app.use(express.json());
 
 //passport
-app.use(passport.initialize())
+// app.use(passport.initialize());
 // app.use(passport.session())
 
 //router
@@ -33,6 +31,7 @@ app.use("/api/profile", require("./router/profile"));
 app.use("/api/product", require("./router/product"));
 app.use("/api/cart", require("./router/shopping-cart"));
 app.use("/api/order", require("./router/products-order"));
+//picture
 app.use(express.static("images"));
 //error
 app.use(errorHandler());

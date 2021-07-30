@@ -16,20 +16,20 @@ exports.updateFile = [
       .optional(),
     body("member.name").trim().isLength({ max: 100 }),
     body("member.email")
+      .optional()
       .isEmail()
       .withMessage("email格式錯誤")
       .bail()
-      .custom(async (email) => {
-        const member = await Members.findOne({ where: { email } });
-        if (member) {
-          return Promise.reject("email已有");
-        }
-      })
-      .normalizeEmail()
-      .optional(),
+      // .custom(async (email) => {
+      //   const member = await Members.findOne({ where: { email } });
+      //   if (member) {
+      //     return Promise.reject("email已有");
+      //   }
+      // })
+      .normalizeEmail(),
     body("member.phone")
-      .trim()
       .optional()
+      .trim()
       .isLength({ max: 10, min: 10 })
       .withMessage("請填寫正確電話"),
     body("member.address").trim().isLength({ max: 200 }),
