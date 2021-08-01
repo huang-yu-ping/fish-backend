@@ -28,10 +28,6 @@ const { OrderedDetailModel } = require("../models");
 const myStorage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, path.join(__dirname, "../", "images"));
-    // cb(
-    //   null,
-    //   path.join(__dirname, "../../fish-association/src/assets/img/userimage")
-    // );
   },
   //filename
   filename: function (req, file, cb) {
@@ -77,10 +73,8 @@ router.post("/image", auth, upload.single("photo"), async (req, res) => {
 
 //抓取個人資料
 router.get("/", auth, async (req, res) => {
-  //   console.log(req.member);
   const member = await Members.findOne({ where: { id: req.member.id } });
-  console.log(member.password);
-
+  // console.log(member.password);
   res.status(200).json({ member });
 });
 
@@ -90,7 +84,6 @@ router.patch(
   auth,
   updateMember.updateFile,
   async (req, res, next) => {
-    // console.log(req.body);
     let data = {
       name: req.body.member.name,
       gender: req.body.member.gender,
@@ -172,81 +165,19 @@ router.delete("/productLike/:productId", auth, async (req, res) => {
 
 //抓取收藏札記
 router.get("/noteLike", auth, async (req, res) => {
-  // FavoritesNote.belongsTo(Notes, {
-  //   targetKey: "id",
-  //   foreignKey: "note_id",
-  // });
-
-  //方法一
-  // FavoritesNote.belongsTo(Notes);
-  // Notes.hasMany(FavoritesNote);
-  // //
-  // Members.belongsTo(Notes);
-  // Notes.hasMany(Members);
-  // const noteLike = await FavoritesNote.findAll({
-  //   include: {
-  //     model: Notes,
-  //     attributes: ["note_name", "member_id"],
-  //     include: [
-  //       {
-  //         model: Members,
-  //         attributes: ["name"],
-  //       },
-  //     ],
-  //   },
-  //   // include: [
-  //   //   {
-  //   //     model: Members,
-  //   //     attributes: ["name"],
-  //   //   },
-  //   // ],
-  //   where: { member_id: req.member.id },
-  // });
-  //方法一
-
-  //方法二
-  Members.belongsToMany(Notes, { through: FavoritesNote });
-  Notes.belongsToMany(Members, { through: FavoritesNote });
-  Members.hasMany(FavoritesNote);
-  FavoritesNote.belongsTo(Members);
-  Notes.hasMany(FavoritesNote);
-  FavoritesNote.belongsTo(Notes);
-  Notes.belongsTo(Members);
+  FavoritesNote.belongsTo(Notes, {
+    targetKey: "id",
+    foreignKey: "note_id",
+  });
   const noteLike = await FavoritesNote.findAll({
     include: [
       {
-        model: Members,
-        attributes: ["name"],
-      },
-      {
         model: Notes,
-        attributes: ["member_id", "note_name"],
+        attributes: ["note_name", "member_id"],
       },
     ],
-    raw: true,
-    // where: { member_id: req.member.id },
+    where: { member_id: req.member.id },
   });
-
-  //方法二
-
-  // Notes.belongsTo(Members, {
-  //   targetKey: "id",
-  //   foreignKey: "member_id",
-  // });
-  // const writer = await Notes.findAll({
-  //   include: [
-  //     {
-  //       model: Members,
-  //       attributes: ["name"],
-  //     },
-  //   ],
-  //   raw: true,
-  //   // where: { member_id: req.member.id },
-  // });
-
-  // const myfavorite = [];
-  // writer.forEach();
-
   console.log(noteLike);
 
   res.status(200).json(noteLike);
@@ -334,7 +265,6 @@ router.get("/order", auth, async (req, res) => {
       });
     }
   });
-  console.log(myOrderDetail);
   res.status(200).json(orderList);
 });
 
