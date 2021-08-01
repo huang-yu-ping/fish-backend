@@ -9,7 +9,6 @@ const errorHandler = require("./middleware/error-handler");
 
 const PORT = 3000;
 
-
 //morgan
 app.use(morgan("dev"));
 
@@ -30,6 +29,7 @@ app.use("/api/profile", require("./router/profile"));
 app.use("/api/product", require("./router/product"));
 app.use("/api/cart", require("./router/shopping-cart"));
 app.use("/api/order", require("./router/products-order"));
+//picture
 app.use(express.static("images"));
 //error
 app.use(errorHandler());
