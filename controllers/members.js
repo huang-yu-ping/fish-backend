@@ -25,7 +25,7 @@ exports.postLogin = async (req, res, next) => {
             memberId: memberOne.id
         }, jwtSecret, {
             //set expire time
-            expiresIn: '1h'
+            expiresIn: '24h'
         })
         //response to client
         const member = {

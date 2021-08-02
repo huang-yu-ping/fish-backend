@@ -6,10 +6,10 @@ const shppingCartCtrl = require('../controllers/shopping-cart');
 const auth = require('../middleware/auth');
 
 //click shopping cart
-router.post('/', auth, shppingCartCtrl.postCartAdd)
+router.get('/', auth, shppingCartCtrl.postCartAdd)
 
 //get cart item list
-router.get('/', auth, shppingCartCtrl.getCartList)
+router.post('/list', auth, shppingCartCtrl.postCartList)
 
 
 module.exports = router;

@@ -11,9 +11,9 @@ exports.postCartAdd = async (req, res, next) => {
             member_id: req.member.id
           }
         })
-        const selectedNum = retNum.length;
+        //const selectedNum = retNum.length;
         res.status(200).json({
-            selectedNum
+            cart_list: retNum
         })
     } catch(err) {
         next(err)
@@ -21,8 +21,9 @@ exports.postCartAdd = async (req, res, next) => {
 }
 
 //get cart list
-exports.getCartList = async (req, res, next) => {
+exports.postCartList = async (req, res, next) => {
     try {
+        console.log(req.body)
         // first time ?
         //找到shopping cart有沒有登入會員的加入
         let findMemberItemCart = await ShoppingCartItems.findAll({
@@ -101,6 +102,9 @@ exports.getCartList = async (req, res, next) => {
         next(err)
     }
 }
+
+
+
 
 
 
