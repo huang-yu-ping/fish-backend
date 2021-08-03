@@ -23,7 +23,6 @@ exports.postCartAdd = async (req, res, next) => {
 //get cart list
 exports.postCartList = async (req, res, next) => {
     try {
-        console.log(req.body)
         // first time ?
         //找到shopping cart有沒有登入會員的加入
         let findMemberItemCart = await ShoppingCartItems.findAll({
@@ -54,7 +53,6 @@ exports.postCartList = async (req, res, next) => {
                 createMemberItemCart
             }) 
         } else {
-            //如果這個人沒有清掉購物車?有想更改呢?
             //clear
             const deleteMemberItemCart = await ShoppingCartItems.destroy({
                 where: {
@@ -102,6 +100,26 @@ exports.postCartList = async (req, res, next) => {
         next(err)
     }
 }
+
+
+exports.deleteCartList = async (req, res, next) => {
+    try {
+        //clear
+        const deleteMemberItemCart = await ShoppingCartItems.destroy({
+            where: {
+                member_id: req.member.id
+            }
+        })
+        res.status(204).json({
+            message: "購物車清除成功"
+        })
+    } catch(err) {
+        next(err)
+    }
+
+}
+
+
 
 
 
