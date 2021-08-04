@@ -170,75 +170,10 @@ module.exports = {
           member_id: 4,
           remit: 1,
           order_state: 1,
->>>>>>> 4b0a09f751501a89e3d4a843414d544e343862c5
         },
       ],
       {}
     );
-<<<<<<< HEAD
-
-    // await queryInterface.bulkInsert('products', [
-    // {
-    //   name: '虱目魚',
-    //   description: 'good fish',
-    //   price: 500,
-    //   catalog: 1,
-    //   reserved: 10,
-    // }, {
-    //   name: '吳郭魚',
-    //   description: 'hi fish',
-    //   price: 840,
-    //   catalog: 1,
-    //   reserved: 5,
-    // }, {
-    //   name: '火燒蝦',
-    //   description: 'fire',
-    //   price: 890,
-    //   catalog: 2,
-    //   reserved: 6,
-    // }, {
-    //   name: '大扇貝',
-    //   description: 'big shell',
-    //   price: 300,
-    //   catalog: 3,
-    //   reserved: 10,
-    // }, {
-    //   name: '章魚',
-    //   description: 'octopus',
-    //   price: 250,
-    //   catalog: 4,
-    //   reserved: 7,
-    // }, {
-    //   name: '黃魚',
-    //   price: 350,
-    //   catalog: 1,
-    //   reserved: 4,
-    // }, {
-    //   name: '草蝦',
-    //   description: 'yoyo',
-    //   price: 56,
-    //   catalog: 2,
-    //   reserved: 13,
-    // }, {
-    //   name: '額子',
-    //   description: 'good fish',
-    //   price: 780,
-    //   catalog: 3,
-    //   reserved: 10,
-    // }, {
-    //   name: '烏賊',
-    //   description: 'black',
-    //   price: 89,
-    //   catalog: 4,
-    //   reserved: 15,
-    // }, {
-    //   name: '螃蟹',
-    //   description: 'jojo',
-    //   price: 900,
-    //   catalog: 3,
-    //   reserved: 7,
-    // }], {});
-=======
     //----OK-------------------------------------------board
     // await queryInterface.bulkInsert("board", [
     //   {
@@ -296,7 +231,6 @@ module.exports = {
     //     product_id: 2,
     //   },
     // ]);
->>>>>>> 4b0a09f751501a89e3d4a843414d544e343862c5
   },
 
   down: async (queryInterface, Sequelize) => {
@@ -306,10 +240,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-<<<<<<< HEAD
-    await queryInterface.bulkDelete("activity_info", null, {});
-=======
     await queryInterface.bulkDelete("members", null, {});
->>>>>>> 4b0a09f751501a89e3d4a843414d544e343862c5
   },
 };
