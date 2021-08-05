@@ -156,7 +156,7 @@ router.get("/productLike", auth, async (req, res) => {
 
 //刪除收藏商品
 router.delete("/productLike/:productId", auth, async (req, res) => {
-  console.log(req.params.productId);
+  // console.log(req.params.productId);
   await MemberLikeProducts.destroy({
     where: {
       product_id: req.params.productId,
@@ -186,7 +186,7 @@ router.get("/noteLike", auth, async (req, res) => {
 
 //刪除收藏札記
 router.delete("/noteLike/:noteId", auth, async (req, res) => {
-  console.log(req.params.noteId);
+  // console.log(req.params.noteId);
   await FavoritesNote.destroy({
     where: {
       note_id: req.params.noteId,
@@ -205,7 +205,7 @@ router.get("/note", auth, async (req, res) => {
 
 //清除札記note(更改state)
 router.patch("/note/patch/:noteId", auth, async (req, res) => {
-  console.log(req.params.noteId);
+  // console.log(req.params.noteId);
   let noteState = {
     state: 2,
   };
@@ -284,6 +284,21 @@ router.get("/order", auth, async (req, res) => {
     }
   });
   res.status(200).json(orderList);
+});
+
+//收藏商品
+router.post("/loveProducts/:productId", auth, async (req, res) => {
+  // const lovePId = req.params.productId;
+  console.log(req.params.productId);
+  try {
+    const loveProduct = await MemberLikeProducts.create({
+      member_id: req.member.id,
+      product_id: req.params.productId,
+    });
+    res.status(200).json(loveProduct);
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 module.exports = router;
