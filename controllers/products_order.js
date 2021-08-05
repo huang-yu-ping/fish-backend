@@ -10,6 +10,8 @@ let gen = rn.generator({
     max:  9999, 
     integer: true
 })
+//send email
+const sendEmail = require('../utils/email')
 
 exports.getOrderItems = async (req, res, next) => {
     try {
@@ -138,6 +140,7 @@ exports.postOrderDetails = async (req, res, next) => {
         }})
 
         console.log(saveOrderDetail)
+        sendEmail.sendEmail(saveOrderDetail.order_serial_number)
         res.status(200).json({
             saveOrderDetail,
             buyItem: getShoppingCartItems
@@ -152,12 +155,12 @@ exports.postOrderDetails = async (req, res, next) => {
 
 exports.showOrderDetail = async (req, res, next) => {
     try {
+        const orderId = req.params.id
         OrderDetail.belongsTo(OrderItems, {
             targetKey: "order_id",
             foreignKey: "id",
           });
-          const myOrderDetail = await OrderDetail.findOne({
-            limit: 1,
+        const myOrderDetail = await OrderDetail.findAll({
             include: [
               {
                 model: OrderItems,
@@ -165,10 +168,10 @@ exports.showOrderDetail = async (req, res, next) => {
               },
             ],
             where: {
-              member_id: req.member.id,
-            },
-            order: [[ 'created_at', 'DESC' ]]
+              id: orderId
+            }
         });
+
         res.status(200).json({
             myOrderDetail
         })

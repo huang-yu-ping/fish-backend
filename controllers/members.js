@@ -8,7 +8,7 @@ const { jwtSecret } = require('../config/jwt-secret');
 const db = require('../models');
 const Members = db.membersModel;
 //send email
-const snedEmail = require('../utils/email')
+const snedEmail = require('../utils/email') 
 
 
 

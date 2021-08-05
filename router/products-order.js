@@ -14,6 +14,6 @@ router.get('/products', auth, orderProductsCtrl.getOrderItems)
 router.post('/products', auth, memberValidator.postOrderDetail, orderProductsCtrl.postOrderDetails)
 //------------------------------------------------------------
 //show order 
-router.get('/detail', auth, orderProductsCtrl.showOrderDetail)
+router.get('/detail/:id', auth, orderProductsCtrl.showOrderDetail)
 
 module.exports = router;
