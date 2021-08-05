@@ -58,8 +58,8 @@ const upload = multer({
 
 //大頭照
 router.post("/image", auth, upload.single("photo"), async (req, res) => {
-  console.log(req.file);
-  console.log(req.member.id);
+  // console.log(req.file);
+  // console.log(req.member.id);
   let headPhoto = await Members.update(
     { image: req.file.filename },
     {
@@ -156,9 +156,10 @@ router.get("/productLike", auth, async (req, res) => {
 
 //刪除收藏商品
 router.delete("/productLike/:productId", auth, async (req, res) => {
+  console.log(req.params.productId);
   await MemberLikeProducts.destroy({
     where: {
-      product_id: req.products.id,
+      product_id: req.params.productId,
     },
   });
 });
@@ -178,22 +179,39 @@ router.get("/noteLike", auth, async (req, res) => {
     ],
     where: { member_id: req.member.id },
   });
-  console.log(noteLike);
+  // console.log(noteLike);
 
   res.status(200).json(noteLike);
+});
+
+//刪除收藏札記
+router.delete("/noteLike/:noteId", auth, async (req, res) => {
+  console.log(req.params.noteId);
+  await FavoritesNote.destroy({
+    where: {
+      note_id: req.params.noteId,
+    },
+  });
+  res.status(200);
 });
 
 //抓取札記note
 router.get("/note", auth, async (req, res) => {
   const note = await Notes.findAll({ where: { member_id: req.member.id } });
-  console.log(note);
+  // console.log(note);
 
   res.status(200).json(note);
 });
 
 //清除札記note(更改state)
-router.patch("/note/delete", auth, async (req, res) => {
-  console.log(req.body);
+router.patch("/note/patch/:noteId", auth, async (req, res) => {
+  console.log(req.params.noteId);
+  let noteState = {
+    state: 2,
+  };
+  const updateNote = await Notes.update(noteState, {
+    where: { id: req.params.noteId },
+  });
 });
 
 //抓取活動紀錄

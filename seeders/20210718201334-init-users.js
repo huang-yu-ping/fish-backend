@@ -173,6 +173,8 @@ module.exports = {
       ],
       {}
     );
+
+
     // await queryInterface.bulkInsert('products', [
     // {
     //   name: '虱目魚',
@@ -249,6 +251,7 @@ module.exports = {
     //   ],
     //   {}
     // );
+
     //----OK-------------------------------------------board
     // await queryInterface.bulkInsert("board", [
     //   {
