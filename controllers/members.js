@@ -44,35 +44,13 @@ exports.postLogin = async (req, res, next) => {
     }
 }
 
-// exports.googleLogin = async (req, res, next) => {
-//     try {
-//        console.log(req.member)
-//        const { name, email, picture } = req.member
-//        let password = '123456'
-//        //加密
-//        snedEmail.sendEmail(email, password)
-//        //create new member
-//        const clientPassword = await bcrypt.hashAsync(password, 10);
-//        const newMember = await Members.create({
-//            name: name,
-//            account: email,
-//            email: email,
-//            image: picture,
-//            password: clientPassword
-//        })
-//        res.status(200).json({
-//           newMember
-//        })
 
-//     } catch(err) {
-//         next(err)
-//     }
-// }
 
 
 exports.googleLogin = async (req, res, next) => {
     try {
        const { name, email, image, token } = req.user
+       console.log(token)
        let password = '123456';
        //加密
        password = await bcrypt.hashAsync(password, 10);
@@ -87,10 +65,19 @@ exports.googleLogin = async (req, res, next) => {
            email: email
         }, defaults: createMember })
         console.log(newMember)
+        const jwtToken = await jwt.sign({
+            memberId: newMember[0].dataValues.id
+        }, jwtSecret, {
+            //set expire time
+            expiresIn: '24h'
+        })
+        console.log(jwtSecret)
+        console.log(jwtToken)
         const member = {
             name: newMember[0].dataValues.name,
             email: newMember[0].dataValues.email,
             image: newMember[0].dataValues.image,
+            token: jwtToken,
             isLogin: true
         }
         res.status(201).json({member})
