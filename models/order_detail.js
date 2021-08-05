@@ -80,6 +80,15 @@ module.exports = sequelize => {
       comment: null,
       field: "pay_way"
     },
+    deliver_way: {
+      type: DataTypes.INTEGER(1),
+      allowNull: false,
+      defaultValue: null,
+      primaryKey: false,
+      autoIncrement: false,
+      comment: null,
+      field: "pay_way"
+    },
     city: {
       type: DataTypes.STRING(20),
       allowNull: false,

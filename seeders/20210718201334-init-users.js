@@ -158,7 +158,6 @@ module.exports = {
       ],
       {}
     );
-    //----OK-------------------------------------------activity_order
     await queryInterface.bulkInsert(
       "activity_order",
       [
@@ -174,6 +173,85 @@ module.exports = {
       ],
       {}
     );
+
+
+    // await queryInterface.bulkInsert('products', [
+    // {
+    //   name: '虱目魚',
+    //   description: 'good fish',
+    //   price: 500,
+    //   catalog: 1,
+    //   reserved: 10,
+    // }, {
+    //   name: '吳郭魚',
+    //   description: 'hi fish',
+    //   price: 840,
+    //   catalog: 1,
+    //   reserved: 5,
+    // }, {
+    //   name: '火燒蝦',
+    //   description: 'fire',
+    //   price: 890,
+    //   catalog: 2,
+    //   reserved: 6,
+    // }, {
+    //   name: '大扇貝',
+    //   description: 'big shell',
+    //   price: 300,
+    //   catalog: 3,
+    //   reserved: 10,
+    // }, {
+    //   name: '章魚',
+    //   description: 'octopus',
+    //   price: 250,
+    //   catalog: 4,
+    //   reserved: 7,
+    // }, {
+    //   name: '黃魚',
+    //   price: 350,
+    //   catalog: 1,
+    //   reserved: 4,
+    // }, {
+    //   name: '草蝦',
+    //   description: 'yoyo',
+    //   price: 56,
+    //   catalog: 2,
+    //   reserved: 13,
+    // }, {
+    //   name: '額子',
+    //   description: 'good fish',
+    //   price: 780,
+    //   catalog: 3,
+    //   reserved: 10,
+    // }, {
+    //   name: '烏賊',
+    //   description: 'black',
+    //   price: 89,
+    //   catalog: 4,
+    //   reserved: 15,
+    // }, {
+    //   name: '螃蟹',
+    //   description: 'jojo',
+    //   price: 900,
+    //   catalog: 3,
+    //   reserved: 7,
+    // }], {});
+    // await queryInterface.bulkInsert(
+    //   "activity_order",
+    //   [
+    //     {
+    //       activity_id: 1,
+    //       name: "jay",
+    //       phone: "0911111111",
+    //       email: "jay@gmail.com",
+    //       member_id: 4,
+    //       remit: 1,
+    //       order_state: 1,
+    //     },
+    //   ],
+    //   {}
+    // );
+
     //----OK-------------------------------------------board
     // await queryInterface.bulkInsert("board", [
     //   {

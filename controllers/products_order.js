@@ -10,6 +10,8 @@ let gen = rn.generator({
     max:  9999, 
     integer: true
 })
+//send email
+const sendEmail = require('../utils/email')
 
 exports.getOrderItems = async (req, res, next) => {
     try {
@@ -85,17 +87,18 @@ exports.postOrderDetails = async (req, res, next) => {
         //---------
 
         //----res save order
-        const resToOrderDetail = {
-            name: req.member.name,
-            original_total,
-            discount_count: req.body.order_details.discount_count,
-            pay_total,
-            pay_way: req.body.order_details.pay_way,
-            city: req.body.order_details.city,
-            postal: req.body.order_details.postal,
-            address: req.body.order_details.address,
-            buyItem: getShoppingCartItems
-        }
+        // const resToOrderDetail = {
+        //     name: req.member.name,
+        //     original_total,
+        //     discount_count: req.body.order_details.discount_count,
+        //     pay_total,
+        //     pay_way: req.body.order_details.pay_way,
+        //     deliver_way: req.body.order_details.deliver_way,
+        //     city: req.body.order_details.city,
+        //     postal: req.body.order_details.postal,
+        //     address: req.body.order_details.address,
+        //     buyItem: getShoppingCartItems
+        // }
         //here, we need to confirm shopping cart is not empty
         //save db
         let orderId = await OrderItems.max('order_id')
@@ -107,6 +110,7 @@ exports.postOrderDetails = async (req, res, next) => {
             discount_count: req.body.order_details.discount_count,
             pay_total,
             pay_way: req.body.order_details.pay_way,
+            deliver_way: req.body.order_details.deliver_way,
             city: req.body.order_details.city,
             postal: req.body.order_details.postal,
             address: req.body.order_details.address,
@@ -135,9 +139,42 @@ exports.postOrderDetails = async (req, res, next) => {
             member_id: req.member.id
         }})
 
-        
-        res.status(200).json(resToOrderDetail)
+        console.log(saveOrderDetail)
+        sendEmail.sendEmail(saveOrderDetail.order_serial_number)
+        res.status(200).json({
+            saveOrderDetail,
+            buyItem: getShoppingCartItems
+        })
         //res.status(200).json(saveOrderItems)
+    } catch(err) {
+        next(err)
+    }
+}
+
+
+
+exports.showOrderDetail = async (req, res, next) => {
+    try {
+        const orderId = req.params.id
+        OrderDetail.belongsTo(OrderItems, {
+            targetKey: "order_id",
+            foreignKey: "id",
+          });
+        const myOrderDetail = await OrderDetail.findAll({
+            include: [
+              {
+                model: OrderItems,
+                attributes: ["product_id", "buy_num"],
+              },
+            ],
+            where: {
+              id: orderId
+            }
+        });
+
+        res.status(200).json({
+            myOrderDetail
+        })
     } catch(err) {
         next(err)
     }

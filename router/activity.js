@@ -4,6 +4,7 @@ const db = require("../models");
 const auth = require("../middleware/auth");
 const ActivityInfo = db.activityInfoModel;
 const ActivityOrder = db.activityOrderModel;
+const mailgun = require("mailgun-js");
 
 router.get("/", async (req, res) => {
   const ret = await ActivityInfo.findAll();
@@ -12,19 +13,31 @@ router.get("/", async (req, res) => {
   });
 });
 
-
-
 router.post("/order", async (req, res) => {
   try {
-    const signUp = await ActivityOrder.create({
-      activity_id: req.query.num,
-      name: req.query.name,
-      phone: req.query.phone,
-      email: req.query.email,
-      member_id: req.query.member,
-      remit: req.query.remit,
+    // const DOMAIN = "";
+    // const mg = mailgun({
+    //   apiKey: "",
+    //   domain: DOMAIN,
+    // });
+    // const mailgunMail = {
+    //   from: "跳躍吧!漁會@example.com",
+    //   to: "sunvicky11@gmail.com",
+    //   subject: "跳躍吧!漁會活動報名成功",
+    //   text: "恭喜你成功完成跳躍吧!漁會的活動報名!!",
+    // };
+    // mg.messages().send(mailgunMail, function (error, info) {
+    //   if (error) {
+    //     console.log("失敗Error: " + err);
+    //   } else {
+    //     console.log("寄成功Response: " + info);
+    //   }
+    // });
+    const signUp = await ActivityOrder.bulkCreate(req.body);
+    return res.status(201).json({
+      message: "活動報名成功",
+      signUp,
     });
-    res.json({ signUp });
   } catch (error) {
     console.log(error);
     res.status(500);

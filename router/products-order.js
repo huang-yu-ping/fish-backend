@@ -13,30 +13,7 @@ router.get('/products', auth, orderProductsCtrl.getOrderItems)
 //order detail
 router.post('/products', auth, memberValidator.postOrderDetail, orderProductsCtrl.postOrderDetails)
 //------------------------------------------------------------
-// const db = require('../models');
-// const ShoppingCartItems =db.shoppingCartItemsModel;
-// const Products = db.ProductsModel;
-// const OrderDetail = db.OrderedDetailModel;
-// const OrderItems = db.OrderItemsModel;
-
-//test
-// router.get('/test', async (req, res) => {
-//     let arr = [];
-//     let diff = [1,2,3]
-//     for(let i = 1;i<4;i++) {
-//         arr.push(i)
-//     }
-//     Products.findAll({
-//         where: { id: arr },
-//         attributes: ['reserved']
-//     }).then((res) => {
-//         for(let i = 0;i < res.length; i++) {
-//             res[0].dataValues.set({reserved: 2})
-//         }
-//     })
-    
-//     res.json(123)
-
-// })
+//show order 
+router.get('/detail/:id', auth, orderProductsCtrl.showOrderDetail)
 
 module.exports = router;

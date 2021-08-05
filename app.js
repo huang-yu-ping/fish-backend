@@ -4,8 +4,8 @@ const morgan = require("morgan");
 //error
 const errorHandler = require("./middleware/error-handler");
 //google
-// const passport = require("passport");
-// require("./middleware/passport-setup");
+
+
 
 const PORT = 3000;
 
@@ -19,10 +19,8 @@ const cors = require("cors");
 app.use(cors());
 //json
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-//passport
-// app.use(passport.initialize());
-// app.use(passport.session())
 
 //router
 app.use("/api/member", require("./router/member"));
