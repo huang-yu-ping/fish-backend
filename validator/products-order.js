@@ -9,7 +9,9 @@ exports.postOrderDetail = validate([
     body('order_details.pay_total')
         .notEmpty()
         .isNumeric(),
-    body('order_details.pay_total')
+    body('order_details.pay_way')
+        .notEmpty().withMessage('請選擇付款方式'),
+    body('order_details.deliver_way')
         .notEmpty().withMessage('請選擇付款方式'),
     body('order_details.city')
         .notEmpty().withMessage('不能為空')

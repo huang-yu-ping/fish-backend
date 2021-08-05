@@ -5,11 +5,16 @@ const shppingCartCtrl = require('../controllers/shopping-cart');
 //auth
 const auth = require('../middleware/auth');
 
+
 //click shopping cart
-router.post('/', auth, shppingCartCtrl.postCartAdd)
+router.get('/', auth, shppingCartCtrl.postCartAdd)
 
 //get cart item list
-router.get('/', auth, shppingCartCtrl.getCartList)
+router.post('/list', auth, shppingCartCtrl.postCartList)
+
+//delete cart items
+router.delete('/list', auth, shppingCartCtrl.deleteCartList)
+
 
 
 module.exports = router;

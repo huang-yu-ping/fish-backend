@@ -13,6 +13,8 @@ const snedEmail = require('../utils/email')
 
 
 
+
+
 //login
 exports.postLogin = async (req, res, next) => {
     try {
@@ -23,7 +25,7 @@ exports.postLogin = async (req, res, next) => {
             memberId: memberOne.id
         }, jwtSecret, {
             //set expire time
-            expiresIn: '1h'
+            expiresIn: '24h'
         })
         //response to client
         const member = {
@@ -42,26 +44,56 @@ exports.postLogin = async (req, res, next) => {
     }
 }
 
+// exports.googleLogin = async (req, res, next) => {
+//     try {
+//        console.log(req.member)
+//        const { name, email, picture } = req.member
+//        let password = '123456'
+//        //加密
+//        snedEmail.sendEmail(email, password)
+//        //create new member
+//        const clientPassword = await bcrypt.hashAsync(password, 10);
+//        const newMember = await Members.create({
+//            name: name,
+//            account: email,
+//            email: email,
+//            image: picture,
+//            password: clientPassword
+//        })
+//        res.status(200).json({
+//           newMember
+//        })
+
+//     } catch(err) {
+//         next(err)
+//     }
+// }
+
+
 exports.googleLogin = async (req, res, next) => {
     try {
-       console.log(req.member)
-       const { name, email, picture } = req.member
-       let password = '123456'
+       const { name, email, image, token } = req.user
+       let password = '123456';
        //加密
-       snedEmail.sendEmail(email, password)
-       //create new member
-       const clientPassword = await bcrypt.hashAsync(password, 10);
-       const newMember = await Members.create({
-           name: name,
-           account: email,
-           email: email,
-           image: picture,
-           password: clientPassword
-       })
-       res.status(200).json({
-          newMember
-       })
-
+       password = await bcrypt.hashAsync(password, 10);
+       const createMember = {
+          account: email,
+          name,
+          email,
+          image,
+          password
+       }
+       const newMember = await Members.findOrCreate({ where: {
+           email: email
+        }, defaults: createMember })
+        console.log(newMember)
+        const member = {
+            name: newMember[0].dataValues.name,
+            email: newMember[0].dataValues.email,
+            image: newMember[0].dataValues.image,
+            isLogin: true
+        }
+        res.status(201).json({member})
     } catch(err) {
         next(err)
     }
