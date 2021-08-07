@@ -290,12 +290,17 @@ router.get("/order", auth, async (req, res) => {
 router.post("/loveProducts/:productId", auth, async (req, res) => {
   // const lovePId = req.params.productId;
   console.log(req.params.productId);
+  const addLike = {
+    member_id: req.member.id,
+    product_id: req.params.productId,
+  }
   try {
-    const loveProduct = await MemberLikeProducts.create({
-      member_id: req.member.id,
-      product_id: req.params.productId,
+    const loveProduct = await MemberLikeProducts.findOrCreate({ where: {
+      product_id: req.params.productId
+     }, defaults: addLike});
+    res.status(201).json({
+      message: '恭喜添加成功'
     });
-    res.status(200).json(loveProduct);
   } catch (err) {
     console.log(err);
   }
