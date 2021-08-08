@@ -11,6 +11,19 @@ module.exports = (sequelize) => {
       comment: null,
       field: "id",
     },
+    note_id: {
+      type: DataTypes.INTEGER(5),
+      allowNull: false,
+      defaultValue: null,
+      primaryKey: false,
+      autoIncrement: false,
+      comment: null,
+      field: "note_id",
+      references: {
+        key: "id",
+        model: "note_model",
+      },
+    },
     board_usename: {
       type: DataTypes.STRING(10),
       allowNull: false,
@@ -51,7 +64,14 @@ module.exports = (sequelize) => {
   const options = {
     tableName: "board",
     comment: "",
-    indexes: [],
+    indexes: [
+      {
+        name: "note_id",
+        unique: false,
+        type: "BTREE",
+        fields: ["note_id"],
+      },
+    ],
   };
   const BoardModel = sequelize.define("board_model", attributes, options);
   return BoardModel;
