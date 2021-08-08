@@ -63,7 +63,7 @@ module.exports = (sequelize) => {
     state: {
       type: DataTypes.INTEGER(1),
       allowNull: false,
-      defaultValue: null,
+      defaultValue: "1",
       primaryKey: false,
       autoIncrement: false,
       comment: null,
