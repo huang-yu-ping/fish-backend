@@ -8,6 +8,7 @@ const Promise = require("bluebird");
 
 const Members = db.membersModel;
 const Notes = db.noteModel;
+const Board = db.boardModel;
 
 
 
@@ -109,9 +110,56 @@ router.post("/upload",auth,async(req,res)=>{
 });
 
 
+/* board load */
 
 
+router.get("/boardview/:noteId", async (req, res) => {
+    try{
+        Board.belongsTo(Notes,{
+            targetKey:"id",
+            foreignKey:"note_id",
+        });
+        const board = await Board.findAll(
+            {
+                where: { note_id: req.params.noteId },
+                include:[
+                    {
+                        model:Notes,
+                        attributes:["id"],
+                    }
+                ]
+                // raw:true,
+            }
+            );
+            console.log(board);
+            res.status(200).json({ board });
+    }
+    catch(err){
+        console.log(err);
+    }
+    
 
+  });
+
+  /* board upload */
+
+  router.post("/boardUpload/:noteId" ,async(req,res)=>{
+
+    try{
+        console.log(req.body);
+        const board = await Board.create({
+            note_id:req.params.noteId,
+            board_usename:req.body.board_usename,
+            board_content:req.body.board_content,
+        });
+            res.status(201).json();
+
+    }
+    catch(err){
+        console.log(err);
+    }
+    
+});
 
 
 

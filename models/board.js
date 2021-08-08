@@ -54,7 +54,7 @@ module.exports = (sequelize) => {
     board_state: {
       type: DataTypes.INTEGER(1),
       allowNull: false,
-      defaultValue: false,
+      defaultValue: "1",
       primaryKey: false,
       autoIncrement: false,
       comment: null,
@@ -64,6 +64,7 @@ module.exports = (sequelize) => {
   const options = {
     tableName: "board",
     comment: "",
+    timestamps: false,
     indexes: [
       {
         name: "note_id",
