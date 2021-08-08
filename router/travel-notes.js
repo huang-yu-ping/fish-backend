@@ -12,7 +12,7 @@ const Notes = db.noteModel;
 
 
 
-//抓取個人資料
+/* list */
 router.get("/", async (req, res) => {
     try{
         Notes.belongsTo(Members,{
@@ -22,6 +22,52 @@ router.get("/", async (req, res) => {
         const notes = await Notes.findAll(
             // { where: { id: req.member.id } }
             {
+                include:[
+                    {
+                        model:Members,
+                        attributes:["name"],
+                    }
+                ]
+                // raw:true,
+            }
+            );
+            console.log(notes);
+            res.status(200).json({ notes });
+    }
+    catch(err){
+        console.log(err);
+    }
+
+  });
+
+
+/* top rank */
+router.get("/top", async (req, res) => {
+    
+        const notes = await Notes.findAll({
+            order:[["favorite","DESC"]],
+            limit:5,
+        });
+            console.log(notes);
+            res.status(200).json({ notes });
+    
+
+  });
+
+
+
+
+  /* Single show */
+
+  router.get("/single/:noteId", async (req, res) => {
+    try{
+        Notes.belongsTo(Members,{
+            targetKey:"id",
+            foreignKey:"member_id",
+        });
+        const notes = await Notes.findOne(
+            {
+                where: { id: req.params.noteId },
                 include:[
                     {
                         model:Members,
@@ -41,18 +87,37 @@ router.get("/", async (req, res) => {
   });
 
 
-/* top */
-router.get("/top", async (req, res) => {
-    
-        const notes = await Notes.findAll({
-            order:[["favorite","DESC"]],
-            limit:5,
+/* note upload */
+
+router.post("/upload",auth,async(req,res)=>{
+
+    try{
+        // console.log(req.body.note);
+        const notes = await Notes.create({
+            member_id:req.member.id,
+            note_name:req.body.note.note_name,
+            note_content:req.body.note.note_content,
         });
             console.log(notes);
             res.status(200).json({ notes });
+
+    }
+    catch(err){
+        console.log(err);
+    }
     
+});
 
-  });
 
 
-  module.exports = router;
+
+
+
+
+
+
+
+
+
+
+module.exports = router;
