@@ -75,12 +75,12 @@ module.exports = (sequelize) => {
     comment: "",
     timestamps: false,
     indexes: [
-      {
-        name: "board_id",
-        unique: false,
-        type: "BTREE",
-        fields: ["board_id"],
-      },
+      // {
+      //   name: "board_id",
+      //   unique: false,
+      //   type: "BTREE",
+      //   fields: ["board_id"],
+      // },
       {
         name: "member_id",
         unique: false,
