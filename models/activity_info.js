@@ -1,8 +1,6 @@
-const {
-  DataTypes
-} = require('sequelize');
+const { DataTypes } = require("sequelize");
 
-module.exports = sequelize => {
+module.exports = (sequelize) => {
   const attributes = {
     id: {
       type: DataTypes.INTEGER(5),
@@ -11,7 +9,7 @@ module.exports = sequelize => {
       primaryKey: true,
       autoIncrement: true,
       comment: null,
-      field: "id"
+      field: "id",
     },
     activity_name: {
       type: DataTypes.STRING(50),
@@ -20,7 +18,7 @@ module.exports = sequelize => {
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "activity_name"
+      field: "activity_name",
     },
     place: {
       type: DataTypes.STRING(50),
@@ -29,7 +27,7 @@ module.exports = sequelize => {
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "place"
+      field: "place",
     },
     schedule: {
       type: DataTypes.STRING(150),
@@ -38,7 +36,7 @@ module.exports = sequelize => {
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "schedule"
+      field: "schedule",
     },
     start_time: {
       type: DataTypes.DATEONLY,
@@ -47,7 +45,7 @@ module.exports = sequelize => {
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "start_time"
+      field: "start_time",
     },
     apply: {
       type: DataTypes.DATEONLY,
@@ -56,7 +54,7 @@ module.exports = sequelize => {
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "apply"
+      field: "apply",
     },
     cost_adult: {
       type: DataTypes.INTEGER(5).UNSIGNED,
@@ -65,7 +63,7 @@ module.exports = sequelize => {
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "cost_adult"
+      field: "cost_adult",
     },
     cost_children: {
       type: DataTypes.INTEGER(5).UNSIGNED,
@@ -74,7 +72,7 @@ module.exports = sequelize => {
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "cost_children"
+      field: "cost_children",
     },
     limit_num: {
       type: DataTypes.INTEGER(2),
@@ -83,7 +81,7 @@ module.exports = sequelize => {
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "limit_num"
+      field: "limit_num",
     },
     current_apply: {
       type: DataTypes.INTEGER(2),
@@ -92,14 +90,20 @@ module.exports = sequelize => {
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "current_apply"
-    }
+      field: "current_apply",
+    },
   };
   const options = {
     tableName: "activity_info",
     comment: "",
-    indexes: []
+    indexes: [],
+    timestamps: false,
+
   };
-  const ActivityInfoModel = sequelize.define("activity_info_model", attributes, options);
+  const ActivityInfoModel = sequelize.define(
+    "activity_info_model",
+    attributes,
+    options
+  );
   return ActivityInfoModel;
 };

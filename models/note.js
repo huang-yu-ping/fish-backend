@@ -1,8 +1,6 @@
-const {
-  DataTypes
-} = require('sequelize');
+const { DataTypes } = require("sequelize");
 
-module.exports = sequelize => {
+module.exports = (sequelize) => {
   const attributes = {
     id: {
       type: DataTypes.INTEGER(5),
@@ -11,20 +9,7 @@ module.exports = sequelize => {
       primaryKey: true,
       autoIncrement: true,
       comment: null,
-      field: "id"
-    },
-    board_id: {
-      type: DataTypes.INTEGER(5),
-      allowNull: false,
-      defaultValue: null,
-      primaryKey: false,
-      autoIncrement: false,
-      comment: null,
-      field: "board_id",
-      references: {
-        key: "id",
-        model: "board_model"
-      }
+      field: "id",
     },
     member_id: {
       type: DataTypes.INTEGER(5),
@@ -36,8 +21,8 @@ module.exports = sequelize => {
       field: "member_id",
       references: {
         key: "id",
-        model: "members_model"
-      }
+        model: "members_model",
+      },
     },
     note_name: {
       type: DataTypes.STRING(20),
@@ -46,7 +31,7 @@ module.exports = sequelize => {
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "note_name"
+      field: "note_name",
     },
     note_content: {
       type: DataTypes.TEXT,
@@ -55,16 +40,16 @@ module.exports = sequelize => {
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "note_content"
+      field: "note_content",
     },
     note_update_time: {
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: sequelize.fn('current_timestamp'),
+      defaultValue: sequelize.fn("current_timestamp"),
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "note_update_time"
+      field: "note_update_time",
     },
     favorite: {
       type: DataTypes.INTEGER(3),
@@ -73,32 +58,36 @@ module.exports = sequelize => {
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "favorite"
+      field: "favorite",
     },
     state: {
       type: DataTypes.INTEGER(1),
       allowNull: false,
-      defaultValue: null,
+      defaultValue: "1",
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "state"
-    }
+      field: "state",
+    },
   };
   const options = {
     tableName: "note",
     comment: "",
-    indexes: [{
-      name: "board_id",
-      unique: false,
-      type: "BTREE",
-      fields: ["board_id"]
-    }, {
-      name: "member_id",
-      unique: false,
-      type: "BTREE",
-      fields: ["member_id"]
-    }]
+    timestamps: false,
+    indexes: [
+      // {
+      //   name: "board_id",
+      //   unique: false,
+      //   type: "BTREE",
+      //   fields: ["board_id"],
+      // },
+      {
+        name: "member_id",
+        unique: false,
+        type: "BTREE",
+        fields: ["member_id"],
+      },
+    ],
   };
   const NoteModel = sequelize.define("note_model", attributes, options);
   return NoteModel;

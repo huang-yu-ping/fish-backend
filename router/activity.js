@@ -1,97 +1,94 @@
 const express = require("express");
 const router = express.Router();
-const db = require('../models');
+const db = require("../models");
+const auth = require("../middleware/auth");
 const ActivityInfo = db.activityInfoModel;
-
-router.post('/:id', (req, res) => {})
+const ActivityOrder = db.activityOrderModel;
+const ActivityNode = db.noteModel;
+const mailgun = require("mailgun-js");
+//
 router.get("/", async (req, res) => {
-  // res.render("首頁的活動資訊");
-  const ret = await ActivityInfo.findAll()
+  const ret = await ActivityInfo.findAll();
   res.status(200).json({
-    ret
-  })
-
-  
-
-  //需要點選日曆顯示活動詳情，也需要點選地點顯示活動日期
-  //不用權限->res內容->似乎需要增加產品類別和地點類別??
-  //   [
-  //     {
-  //         "name": "活動名稱-海釣",
-  //         "apply_date":"7/20",
-  //         "cost_adult":"2000",
-  //         "cost_children":"1500",
-  //         "result":
-  //         {
-  //             "0":[{
-  //                 "place":"正濱漁港",
-  //                 "detail":
-  //                 [{
-  //                     "id": "活動編號A001",
-  //                     "start_date":"7/22",
-  //                     "limit_num":"20",
-  //                     "applynow":"0"
-  //                 },
-  //                 {
-  //                     "id": "活動編號A002",
-  //                     "start_date":"7/25",
-  //                     "limit_num":"20",
-  //                     "applynow":"0"},
-  //                 {
-  //                     "id": "活動編號A003",
-  //                     "start_date":"7/28",
-  //                     "limit_num":"20",
-  //                     "applynow":"0"},
-  //                 ]
-  //             }],
-  //             "1":[{
-  //                 "place":"深澳漁港",
-  //                 "detail":
-  //                 [{
-  //                     "id": "活動編號A004",
-  //                     "start_date":"7/30",
-  //                     "limit_num":"20",
-  //                     "applynow":"0"
-  //                 },
-  //                 {
-  //                     "id": "活動編號A005",
-  //                     "start_date":"7/31",
-  //                     "limit_num":"20",
-  //                     "applynow":"0"},
-  //                 {
-  //                     "id": "活動編號A006",
-  //                     "start_date":"8/01",
-  //                     "limit_num":"20",
-  //                     "applynow":"0"},
-  //                 ]
-  //             }]
-  //         }
-  //     },
-  //     {
-  //         "name": "活動名稱-海生館",
-  //         "apply_date":"8/20",
-  //         "cost_children":"500",
-  //         "cost_adult":"1000",
-  //         "result":
-  //             {"place":"深澳漁港",
-  //             "detail" :[{
-  //                 "id": "活動編號A007",
-  //                 "start_date":"8/28",
-  //                 "limit_num":"20",
-  //                 "applynow":"0",
-  //             },
-  //             {"id": "活動編號A008",
-  //                 "start_date":"8/29",
-  //                 "limit_num":"20",
-  //                 "applynow":"0",}
-  //             ],
-  //             }//海生館result
-  // }//第二個活動括號
-  // ]
+    ret,
+  });
 });
-router.post("/activity/order", (req, res) => {
-  res.render("活動訂單");
-  //要權限->req內容
+//送出訂單
+router.post("/order", async (req, res) => {
+  try {
+    // const DOMAIN = "";
+    // const mg = mailgun({
+    //   apiKey: "",
+    //   domain: DOMAIN,
+    // });
+    // const mailgunMail = {
+    //   from: "跳躍吧!漁會@example.com",
+    //   to: "sunvicky11@gmail.com",
+    //   subject: "跳躍吧!漁會活動報名成功",
+    //   text: "恭喜你成功完成跳躍吧!漁會的活動報名!!",
+    // };
+    // mg.messages().send(mailgunMail, function (error, info) {
+    //   if (error) {
+    //     console.log("失敗Error: " + err);
+    //   } else {
+    //     console.log("寄成功Response: " + info);
+    //   }
+    // });
+    const signUp = await ActivityOrder.bulkCreate(req.body);
+    return res.status(201).json({
+      message: "活動報名成功",
+      signUp,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500);
+  }
+});
+//取得活動訂單資訊
+router.get("/order", async (req, res) => {
+  try {
+    ActivityOrder.belongsTo(ActivityInfo, {
+      targetKey: "id",
+      foreignKey: "activity_id",
+    });
+    const orderDetail = await ActivityOrder.findAll({
+      //attributes: ["name"],
+      include: [
+        {
+          model: ActivityInfo,
+          //attributes: ["activity_name"],
+        },
+      ],
+      where: {
+        id: req.query.num,
+      },
+    });
+    res.status(200).json({ activity: orderDetail });
+  } catch (error) {
+    console.log(error);
+  }
+});
+//取得活動札記資訊
+router.get("/note", async (req, res) => {
+  try {
+    const notelist = await ActivityNode.findAll({
+      limit: 3,
+    });
+    res.status(200).json({
+      notelist,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+//取得相對應的活動資訊
+router.get("/:ID", async (req, res) => {
+  const ret = await ActivityInfo.findAll({
+    where: {
+      id: req.params.ID,
+    },
+  });
+  res.status(200).json({ ret });
 });
 
 module.exports = router;

@@ -7,8 +7,10 @@ const jwtSecret = config.jwtSecret;
 const db = require('../models');
 const Member = db.membersModel;
 
+
+
 module.exports = async (req, res, next) => {
-    //get token from header authorization
+    //get token from header authorization (own)
     let token = req.headers['authorization']
     token = token ? token.split('Bearer ')[1] : null;
 
@@ -16,11 +18,11 @@ module.exports = async (req, res, next) => {
         return res.status(401).end()
     }
 
-    try {
+    try {        
         const decodedToken = await jwt.verify(token, jwtSecret)
-        console.log(decodedToken.memberId);
         req.member = await Member.findOne({ where: { id: decodedToken.memberId } })
         next()
+         
     } catch(err) {
         //無效的token
         return res.status(401).end()

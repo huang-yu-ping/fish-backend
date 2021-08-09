@@ -11,9 +11,9 @@ exports.postCartAdd = async (req, res, next) => {
             member_id: req.member.id
           }
         })
-        const selectedNum = retNum.length;
+        //const selectedNum = retNum.length;
         res.status(200).json({
-            selectedNum
+            cart_list: retNum
         })
     } catch(err) {
         next(err)
@@ -21,7 +21,7 @@ exports.postCartAdd = async (req, res, next) => {
 }
 
 //get cart list
-exports.getCartList = async (req, res, next) => {
+exports.postCartList = async (req, res, next) => {
     try {
         // first time ?
         //找到shopping cart有沒有登入會員的加入
@@ -43,12 +43,16 @@ exports.getCartList = async (req, res, next) => {
             //create
             //加入shopping cart表
             const createMemberItemCart = await ShoppingCartItems.bulkCreate(arrItems)
+            if(createMemberItemCart.length === 0) {
+                return res.status(406).json({
+                    message: "購物車添加失敗",
+                }) 
+            }
             return res.status(201).json({
                 message: "購物車添加成功",
                 createMemberItemCart
             }) 
         } else {
-            //如果這個人沒有清掉購物車?有想更改呢?
             //clear
             const deleteMemberItemCart = await ShoppingCartItems.destroy({
                 where: {
@@ -64,6 +68,11 @@ exports.getCartList = async (req, res, next) => {
             const updateMemberItemCart = await ShoppingCartItems.bulkCreate(arrItems, { 
                 updateOnDuplicate: ["member_id", "product_id", "buy_num"] })
             
+            if(updateMemberItemCart.length === 0) {
+                return res.status(406).json({
+                    message: "購物車添加失敗",
+                }) 
+            }
             //const updateItemCart = await OrderItems.bulkCreate(updateMemberItemCart)
             //join
             ShoppingCartItems.belongsTo(Products, { targetKey: 'id', foreignKey: 'product_id'});
@@ -91,6 +100,29 @@ exports.getCartList = async (req, res, next) => {
         next(err)
     }
 }
+
+
+exports.deleteCartList = async (req, res, next) => {
+    try {
+        //clear
+        const deleteMemberItemCart = await ShoppingCartItems.destroy({
+            where: {
+                member_id: req.member.id
+            }
+        })
+        res.status(204).json({
+            message: "購物車清除成功"
+        })
+    } catch(err) {
+        next(err)
+    }
+
+}
+
+
+
+
+
 
 
 

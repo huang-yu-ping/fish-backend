@@ -1,8 +1,6 @@
-const {
-  DataTypes
-} = require('sequelize');
+const { DataTypes } = require("sequelize");
 
-module.exports = sequelize => {
+module.exports = (sequelize) => {
   const attributes = {
     id: {
       type: DataTypes.INTEGER(5),
@@ -11,7 +9,7 @@ module.exports = sequelize => {
       primaryKey: true,
       autoIncrement: true,
       comment: null,
-      field: "id"
+      field: "id",
     },
     activity_id: {
       type: DataTypes.INTEGER(5),
@@ -23,17 +21,17 @@ module.exports = sequelize => {
       field: "activity_id",
       references: {
         key: "id",
-        model: "activity_info_model"
-      }
+        model: "activity_info_model",
+      },
     },
     created_at: {
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: sequelize.fn('current_timestamp'),
+      defaultValue: sequelize.fn("current_timestamp"),
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "created_at"
+      field: "created_at",
     },
     name: {
       type: DataTypes.STRING(20),
@@ -42,7 +40,7 @@ module.exports = sequelize => {
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "name"
+      field: "name",
     },
     phone: {
       type: DataTypes.INTEGER(10),
@@ -51,7 +49,7 @@ module.exports = sequelize => {
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "phone"
+      field: "phone",
     },
     email: {
       type: DataTypes.STRING(30),
@@ -60,7 +58,7 @@ module.exports = sequelize => {
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "email"
+      field: "email",
     },
     member_id: {
       type: DataTypes.INTEGER(5),
@@ -69,7 +67,7 @@ module.exports = sequelize => {
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "member_id"
+      field: "member_id",
     },
     remit: {
       type: DataTypes.INTEGER(1),
@@ -78,7 +76,7 @@ module.exports = sequelize => {
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "remit"
+      field: "remit",
     },
     order_state: {
       type: DataTypes.INTEGER(1),
@@ -87,19 +85,26 @@ module.exports = sequelize => {
       primaryKey: false,
       autoIncrement: false,
       comment: null,
-      field: "order_state"
-    }
+      field: "order_state",
+    },
   };
   const options = {
     tableName: "activity_order",
     comment: "",
-    indexes: [{
-      name: "activity_id",
-      unique: false,
-      type: "BTREE",
-      fields: ["activity_id"]
-    }]
+    timestamps: false,
+    indexes: [
+      {
+        name: "activity_id",
+        unique: false,
+        type: "BTREE",
+        fields: ["activity_id"],
+      },
+    ]
   };
-  const ActivityOrderModel = sequelize.define("activity_order_model", attributes, options);
+  const ActivityOrderModel = sequelize.define(
+    "activity_order_model",
+    attributes,
+    options
+  );
   return ActivityOrderModel;
 };
