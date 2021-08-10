@@ -9,7 +9,7 @@ const Promise = require("bluebird");
 const bcrypt = Promise.promisifyAll(require("bcrypt"));
 // mailgun
 const mailgun = require("mailgun-js");
-
+const key = require('../config/email-secret')
 //連MySQL區
 const Members = db.membersModel;
 const Notes = db.noteModel;
@@ -107,9 +107,9 @@ router.patch(
     res.send("put /profile");
 
     //有變更資料寄信通知
-    const DOMAIN = "sandbox652ca7e9c24a4f8f9b63f67423460ab9.mailgun.org";
+    const DOMAIN = key.emailKey;
     const mg = mailgun({
-      apiKey: "991e4f95df850f2d12d1a116c556129a-a0cfb957-72f364db",
+      apiKey: key.apiKey,
       domain: DOMAIN,
     });
     const mailgunMail = {
