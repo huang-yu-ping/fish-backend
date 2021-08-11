@@ -1,6 +1,10 @@
 # 大專漁會後台
 本專案使用 Node (Express + Mysql)
 
+# 版本
+- npm = 6.14.11
+- node = v14.16.0
+
 # 開始
 
 1. clone 專案
