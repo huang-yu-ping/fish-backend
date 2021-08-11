@@ -1,12 +1,103 @@
 # 大專漁會後台
+本專案使用 Node (Express + Mysql)
 
-## 很重要!!開發前把 request body 和 response 設計規劃好,寫在共筆,才開始專案
+# 開始
 
-## 很重要!!因為決定用 sequelize 寫,所以不能再去 phpmyadmin 更改結構以及增加資料,不然資料庫會有衝突,要善用 migeations 和 seeders 喔~~
+1. clone 專案
+```
+git clone https://github.com/huang-yu-ping/fish-backend.git
+```
 
-- 使用前先來問我一下,有關資料庫的 config, 還有 models 的東西
-- depencies 我之後會增加
-- 要安裝測試街口工具 Insomnia / postman 進行開發
+2. 下載 dependencies
+```
+$ npm install
+```
 
-TEST
-0725 立唯 test
+3. 安奘 mySQL
+
+4. 
+```
+$ npm install nodemon -g
+```
+
+5. 創建 config/ 檔案夾, 裡面有 :
+- config.json
+```
+{
+  "development": {
+    "username": "",
+    "password": "",
+    "database": "",
+    "host": "",
+    "dialect": ""
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
+``` 
+
+- email-secret.js
+module.exports = {
+    emailKey: '',
+    apiKey: ""
+}
+
+- jwt-secret.js
+module.exports = {
+    jwtSecret: ''
+}
+
+- key.js
+module.exports = {
+    google: {
+        clientID: '',
+        clientSecret: ''
+    }
+}
+
+6. 
+```
+$ npm start
+```
+
+# Dependencies
+
+- expressjs
+- express-validator
+- jsonwebtoken
+- bcrypt 
+- bluebird
+- cors
+- dotenv
+- mailgun-js
+- morgan
+- multer
+- mysql
+- mysql2
+- passport
+- passport-google-token
+- random-number
+- sequelize
+- sequelize-automate
+- sequelize-cli
+
+# 專案結構
+
+- app.js : 出口文件
+- config/ : 資料庫連接, email api key, jwt secret, google api key
+- router/ : 我api定義路由
+- models/ : 定義mysql的schema
+- controllers/ : 處理業務邏輯
+- validator/ : 處理前端資料來源驗證
