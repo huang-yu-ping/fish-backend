@@ -49,23 +49,29 @@ $ npm install nodemon -g
 ``` 
 
 - email-secret.js
+```
 module.exports = {
     emailKey: '',
     apiKey: ""
 }
+```
 
 - jwt-secret.js
+```
 module.exports = {
     jwtSecret: ''
 }
+```
 
 - key.js
+```
 module.exports = {
     google: {
         clientID: '',
         clientSecret: ''
     }
 }
+```
 
 6. 
 ```
