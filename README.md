@@ -1,6 +1,10 @@
 # 大專漁會後台
 本專案使用 Node (Express + Mysql)
 
+# 版本
+- npm = 6.14.11
+- node = v14.16.0
+
 # 開始
 
 1. clone 專案
@@ -49,23 +53,29 @@ $ npm install nodemon -g
 ``` 
 
 - email-secret.js
+```
 module.exports = {
     emailKey: '',
     apiKey: ""
 }
+```
 
 - jwt-secret.js
+```
 module.exports = {
     jwtSecret: ''
 }
+```
 
 - key.js
+```
 module.exports = {
     google: {
         clientID: '',
         clientSecret: ''
     }
 }
+```
 
 6. 
 ```
@@ -101,8 +111,3 @@ $ npm start
 - models/ : 定義mysql的schema
 - controllers/ : 處理業務邏輯
 - validator/ : 處理前端資料來源驗證
-
-
-
-
-
